@@ -23,7 +23,7 @@ const Navbar = () => {
             </h1>
           </a>
         </div>
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-end mx-auto p-4">
+        <div className="font-thin max-w-screen-xl flex flex-wrap items-center justify-end mx-auto p-4">
           {/* element user */}
           <div className="flex items-center md:order-2">
             <p className="hidden md:block p-3">pseudo</p>
@@ -103,7 +103,7 @@ const Navbar = () => {
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 sm:m-auto"
             id="navbar-user"
           >
-            <ul className="sm:relative left-16 flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="sm:relative left-16 flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <a
                   href="#"
