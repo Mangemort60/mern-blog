@@ -10,7 +10,9 @@ const PostPreview = () => {
           alt=""
           className="md:h-[250px] h-1/2 object-cover"
         />
-        <h1 className="text-2xl mt-2 pl-2">Title PreviewPost</h1>
+        <h1 className="text-2xl mt-2 truncate md:w-[220px]">
+          Title PreviewPost
+        </h1>
       </Link>
       <div className="flex mt-4 pl-2">
         <svg
