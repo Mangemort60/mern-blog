@@ -2,25 +2,25 @@ import { Link } from 'react-router-dom';
 import img from '../assets/profile-pic.png';
 import { PostTypes } from '../App';
 
-interface PostPreviewProps {
+interface SecondPostPreviewProps {
   posts: PostTypes[] | undefined;
 }
 
-const PostPreview = ({ posts }: PostPreviewProps) => {
+const SecondPostPreview = ({ posts }: SecondPostPreviewProps) => {
   if (posts && posts.length > 0) {
     return (
-      <div className="md:h-[300px] mt-4 md:m-0">
+      <div className="md:h-auto h-[600px] mt-4 md:m-0 ">
         <Link to={'/post/:id'} className="flex flex-col justify-between">
           <img
-            src={posts[posts.length - 2].img}
+            src={posts[posts.length - 3].img}
             alt=""
-            className="md:h-[250px] h-[600px] object-cover"
+            className="md:h-[250px] h-[600px] object-cover "
           />
           <h1
             className="text-1xl mt-2 truncate md:w-[220px]"
-            title={posts[posts.length - 2].title}
+            title={posts[posts.length - 3].title}
           >
-            {posts[posts.length - 2].title}
+            {posts[posts.length - 3].title}
           </h1>
         </Link>
         <div className="flex mt-4 ">
@@ -39,7 +39,7 @@ const PostPreview = ({ posts }: PostPreviewProps) => {
             />
           </svg>
           <div className="ml-auto flex items-center">
-            <p className="mr-2">By {posts[posts.length - 2].author.pseudo}</p>
+            <p className="mr-2">By {posts[posts.length - 3].author.pseudo}</p>
             <img
               className="w-8 h-8 rounded-full ml-auto mr-2 mb-1"
               src={img}
@@ -77,4 +77,4 @@ const PostPreview = ({ posts }: PostPreviewProps) => {
   }
 };
 
-export default PostPreview;
+export default SecondPostPreview;

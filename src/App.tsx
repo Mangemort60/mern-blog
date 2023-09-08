@@ -10,9 +10,17 @@ import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+export interface User {
+  _id: string;
+  email: string;
+  pseudo: string;
+  isAuthor: boolean;
+  isAdmin: boolean;
+  post: string;
+}
 export interface PostTypes {
   _id: string;
-  author: string;
+  author: User;
   body: string;
   comment: string[];
   date: Date;
