@@ -2,15 +2,19 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const onSubmit = (data: FormData) => {
     axios
       .post('http://127.0.0.1:3000/api/user', data)
       .then((response) => {
         console.log('compte crée avec succès', response.data);
+        navigate('/login');
       })
-      .catch((err) => console.log('Erreur lors de la connexion', err));
+      .catch((err) => console.log("Erreur lors de l'enregistrement", err));
   };
 
   const schema = z.object({
@@ -19,6 +23,12 @@ const Register = () => {
       .min(2, { message: "L'email doit contenir au minimum 2 caractères" })
       .max(30, {
         message: 'Lemail doit contenir au maximum 15 caractères',
+      }),
+    pseudo: z
+      .string()
+      .min(2, { message: 'Le pseudo doit contenir au minimum 2 caractères' })
+      .max(30, {
+        message: 'Le pseudo doit contenir au maximum 15 caractères',
       }),
     password: z
       .string()
@@ -42,8 +52,26 @@ const Register = () => {
     <div className="w-full max-w-xs m-auto mt-16 ">
       <form
         className="bg-white shadow-md rounded-sm px-8 pt-6 pb-8 mb-4"
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
       >
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="pseudo"
+          >
+            pseudo
+          </label>
+          <input
+            className="shadow-none border-0 border-b-[1px] w-full py-2 px-3 text-gray-600 mb-3 leading-tigh"
+            id="pseudo"
+            type="text"
+            placeholder="pseudo"
+            {...register('pseudo', { required: true })}
+          />
+          {errors.email && <span>This field is required</span>}
+        </div>
+
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
