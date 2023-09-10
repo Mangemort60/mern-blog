@@ -1,10 +1,21 @@
 import { Collapse } from 'flowbite';
 import img from '../assets/profile-pic.png';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   // script pour la fonction collapse de la navbar FlowBite
   const targetEl = document.getElementById('navbar-hamburger');
   const triggerEl = document.getElementById('triggerEl');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  const [_Cookies, _setCookies, RemoveCookies] = useCookies();
+  const navigate = useNavigate();
+
+  const HandleLogout = () => {
+    RemoveCookies('token');
+    RemoveCookies('userId');
+    navigate('/login');
+  };
 
   new Collapse(targetEl, triggerEl);
 
@@ -67,6 +78,9 @@ const Navbar = () => {
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    onClick={() => {
+                      HandleLogout();
+                    }}
                   >
                     Se déconnecter
                   </a>

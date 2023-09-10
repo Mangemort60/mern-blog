@@ -32,7 +32,6 @@ export interface PostTypes {
 
 function App() {
   const [posts, setPosts] = useState<PostTypes[]>();
-  console.log('PostState : ', posts);
 
   useEffect(() => {
     axios

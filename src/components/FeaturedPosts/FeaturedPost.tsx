@@ -1,32 +1,42 @@
 import { Link } from 'react-router-dom';
-import img from '../assets/profile-pic.png';
-import { PostTypes } from '../App';
+import { PostTypes } from '../../App';
+import { useParams } from 'react-router-dom';
 
-interface PostPreviewProps {
+interface FeaturedPostProps {
   posts: PostTypes[] | undefined;
 }
 
-const PostPreview = ({ posts }: PostPreviewProps) => {
+const FeaturedPost = ({ posts }: FeaturedPostProps) => {
+  // const [postId, setPostId] = useParams();
+
   if (posts && posts.length > 0) {
     return (
-      <div className="md:h-[300px] mt-4 md:m-0">
-        <Link to={'/post/:id'} className="flex flex-col justify-between">
-          <img
-            src={posts[posts.length - 2].img}
-            alt=""
-            className="md:h-[250px] h-[600px] object-cover"
-          />
+      <Link
+        to={`/post/${posts[posts.length - 1]._id}`}
+        className="flex flex-col md:h-auto h-[600px] justify-end col-span-2 row-span-2 text-white"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),url("${
+            posts[posts.length - 1].img
+          }")`,
+          backgroundSize: 'cover',
+        }}
+      >
+        <Link
+          to={`/post/${posts[posts.length - 1]._id}`}
+          className="flex flex-col"
+        >
           <h1
-            className="text-1xl mt-2 truncate md:w-[220px]"
-            title={posts[posts.length - 2].title}
+            className="text-2xl font-normal pl-2 "
+            title={posts[posts.length - 1].title}
           >
-            {posts[posts.length - 2].title}
+            {posts[posts.length - 1].title}
           </h1>
+          <p className="my-4 pl-2">{posts[posts.length - 1].intro}</p>
         </Link>
-        <div className="flex mt-4 ">
+        <div className="flex pl-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            fill="#fdcb31"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
@@ -38,16 +48,16 @@ const PostPreview = ({ posts }: PostPreviewProps) => {
               d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
             />
           </svg>
-          <div className="ml-auto flex items-center">
-            <p className="mr-2">By {posts[posts.length - 2].author.pseudo}</p>
+          <Link to={'/user-profile'} className="ml-auto flex items-center">
+            <p className="mr-2">By </p>
             <img
               className="w-8 h-8 rounded-full ml-auto mr-2 mb-1"
-              src={img}
+              src=""
               alt="user photo"
             />
-          </div>
+          </Link>
         </div>
-      </div>
+      </Link>
     );
   } else {
     return (
@@ -77,4 +87,4 @@ const PostPreview = ({ posts }: PostPreviewProps) => {
   }
 };
 
-export default PostPreview;
+export default FeaturedPost;
