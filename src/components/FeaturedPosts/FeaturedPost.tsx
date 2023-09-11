@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { PostTypes } from '../../App';
-import { useParams } from 'react-router-dom';
 
 interface FeaturedPostProps {
   posts: PostTypes[] | undefined;
