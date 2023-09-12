@@ -1,5 +1,4 @@
 import Comment from './Comment';
-import img from '../../public/sunIcon-1.webp';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -9,7 +8,7 @@ interface ApiResponse {
   post: PostData;
 }
 
-interface Author {
+export interface Author {
   email: string;
   password: string;
   pseudo: string;
@@ -44,30 +43,30 @@ const Post = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center m-2 font-thin">
+    <div className="flex flex-col items-center m-2 font-lora">
       <img
         src={post?.img}
         alt={post?.img}
         className="h-[600px] w-full object-cover"
       />
-      <h1 className="text-2xl my-auto">{post?.title}</h1>
-      <div className="flex w-full">
+      <h1 className="text-2xl my-6 font-semibold">{post?.title}</h1>
+      <div className="flex w-full text-gray-400">
         <div className="flex">
-          <p className="">By {post?.author.pseudo}</p>
+          <p className="text-sm">By {post?.author.pseudo}</p>
           <img
-            className="w-8 h-8 rounded-full ml-auto mr-2 mb-1"
+            className="w-6 h-6 rounded-full ml-2  mb-1 "
             src={post?.author.headshot}
             alt="user photo"
           />
         </div>
-        <p className="ml-auto">
+        <p className="ml-auto text-sm">
           {post?.date
             ? moment(post.date).format('DD MMMM YYYY')
             : 'Date inconnue'}
         </p>
       </div>
       <p className="my-4">{post?.intro}</p>
-      <p>{post?.body} </p>
+      <p>&emsp;{post?.body} </p>
       <div className="flex flex-row w-full justify-end mt-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"

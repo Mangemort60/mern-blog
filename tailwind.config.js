@@ -9,6 +9,7 @@ export default {
     extend: {
       fontFamily: {
         josefin: ['"Josefin Slab"', 'serif'],
+        lora: ['Lora', 'serif'],
       },
     },
   },

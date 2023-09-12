@@ -1,7 +1,7 @@
 import { Collapse } from 'flowbite';
 import img from '../assets/profile-pic.png';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   // script pour la fonction collapse de la navbar FlowBite
@@ -23,7 +23,7 @@ const Navbar = () => {
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="flex justify-center ">
-          <a href="https://flowbite.com/" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img
               src="../../public/sunicon-1.webp"
               className="h-12 mr-3"
@@ -32,7 +32,7 @@ const Navbar = () => {
             <h1 className="font-josefin Slab text-4xl whitespace-nowrap dark:text-white">
               Blog
             </h1>
-          </a>
+          </Link>
         </div>
         <div className="font-thin max-w-screen-xl flex flex-wrap items-center justify-end mx-auto p-4">
           {/* element user */}
