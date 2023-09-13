@@ -8,16 +8,10 @@ import Register from './components/Register';
 import UserProfile from './components/UserProfile';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext, User } from './contexts/UserContext';
+import { useCookies } from 'react-cookie';
 
-export interface User {
-  _id: string;
-  email: string;
-  pseudo: string;
-  isAuthor: boolean;
-  isAdmin: boolean;
-  post: string;
-}
 export interface PostTypes {
   _id: string;
   author: User;
@@ -30,15 +24,38 @@ export interface PostTypes {
   intro: string;
 }
 
+interface GetUserResponse {
+  user: User;
+}
+
 function App() {
   const [posts, setPosts] = useState<PostTypes[]>();
+  const [cookies, setCookie] = useCookies(['userId', 'token']);
+  const { user, setUser } = useContext(UserContext);
+  console.log(cookies.token, cookies.userId);
+
+  useEffect(() => {
+    console.log('Effect triggered');
+    if (cookies.userId && cookies.token) {
+      console.log('Fetching user...');
+      axios
+        .get<GetUserResponse>(
+          `http://127.0.0.1:3000/api/user/${cookies.userId}`
+        )
+        .then((response) => {
+          console.log('User fetched:', response.data);
+          setUser(response.data.user);
+        })
+        .catch((error) => console.log(error));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cookies.userId, cookies.token]);
 
   useEffect(() => {
     axios
       .get<PostTypes[]>('http://127.0.0.1:3000/api/posts')
       .then((response) => {
         const posts = response.data;
-        console.log(posts);
         setPosts(posts);
       })
       .catch((err) => console.log(err));

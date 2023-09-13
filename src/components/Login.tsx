@@ -4,16 +4,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { User, UserContext } from '../contexts/UserContext';
+import { useContext } from 'react';
 
 interface ResponseData {
   token: string;
-  userId: string;
+  user: User;
 }
-
-interface LoginFormProps {}
 
 const Login = () => {
   const [cookies, setCookie, removeCookie] = useCookies<string>([]);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const onSubmit = (data: FormData) => {
@@ -22,7 +23,8 @@ const Login = () => {
       .then((response) => {
         console.log('connexion réussie', response.data);
         setCookie('token', response.data.token);
-        setCookie('userId', response.data.userId);
+        setCookie('userId', response.data.user._id);
+        setUser(response.data.user);
         navigate('/');
       })
       .catch((err) => console.log('Erreur lors de la connexion', err));

@@ -4,10 +4,14 @@ import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCookies } from 'react-cookie';
+import { UserContext } from '../contexts/UserContext';
+import { useContext } from 'react';
 
 const PostComment = () => {
   const { id } = useParams();
   const [token] = useCookies('token');
+  const { user, setUser } = useContext(UserContext);
+  console.log('POSTCOMMENT : ', user);
 
   const onPosting = (data: FormData) => {
     const newComment = {
@@ -30,7 +34,15 @@ const PostComment = () => {
   };
 
   const schema = z.object({
-    comment: z.string().min(5).max(1000),
+    comment: z
+      .string()
+      .min(3, {
+        message: 'Le commentaire doit contenir au minimum 5 caractères',
+      })
+      .max(1000, {
+        message: 'le commentaire doit contenir au maximum 1000 caractères',
+      })
+      .optional(),
   });
 
   type FormData = z.infer<typeof schema>;
@@ -42,27 +54,39 @@ const PostComment = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-6">
+      {errors.comment && (
+        <div
+          className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 "
+          role="alert"
+        >
+          <p>{errors.comment.message}</p>
+        </div>
+      )}
       <div className="flex">
         <div className="flex-shrink-0 mr-3">
           <img
-            className="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
-            src=""
+            className="mt-2 rounded-full w-8 h-8 "
+            src={user.headshot}
             alt=""
           />
         </div>
-        <div className="flex-1 flex flex-col border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-          <p className="font-semibold">pseudo user</p>
-          <form onSubmit={handleSubmit(onPosting)}>
+        <div className="flex flex-col p-2 w-full mx-auto border rounded-md">
+          <form
+            onSubmit={handleSubmit(onPosting)}
+            className="flex flex-col gap-2"
+          >
+            <p className="font-semibold">pseudo user</p>
             <textarea
-              className="text-sm border-none shadow-sm my-2"
+              rows={4}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Ecrivez un commentaire ici..."
               id="comment"
               {...register('comment', { required: true })}
-            >
-              commentaire
-            </textarea>
+            ></textarea>
+
             <button
-              className="bg-gray-100 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded-sm w-1/2 mx-auto focus:outline-none focus:shadow-outline"
+              className="mt-2 bg-gray-100 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded-sm w-2/6 mx-auto focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Poster

@@ -33,30 +33,27 @@ const Comment = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 antialiased mx-auto mt-6 max-w-screen-sm">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
+    <div className="flex flex-col gap-6  mx-auto mt-6 max-w-md">
+      <h3 className=" text-lg font-semibold text-gray-900">Comments</h3>
       <PostComment />
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <div className="space-y-4" key={comment.id}>
-            <div className="flex">
-              <div className="flex-shrink-0 mr-3">
-                <img
-                  className="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
-                  src={comment.author.headshot}
-                  alt=""
-                />
-              </div>
-              <div className="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                <strong>{comment.author.pseudo}</strong>{' '}
+          <div className="flex" key={comment.id}>
+            <div className="flex-shrink-0 mr-3">
+              <img
+                className="mt-2 rounded-full w-8 h-8 "
+                src={comment.author.headshot}
+                alt=""
+              />
+            </div>
+            <div className="flex flex-col border rounded-md w-full">
+              <p>
+                {comment.author.pseudo}{' '}
                 <span className="text-xs text-gray-400">
                   {moment(comment.date).fromNow()}
                 </span>
-                <p className="text-sm">{comment.body}</p>
-                <h4 className="my-5 uppercase tracking-wide text-gray-400 font-bold text-xs">
-                  Replies
-                </h4>
-              </div>
+              </p>{' '}
+              <p className="text-sm">{comment.body}</p>
             </div>
           </div>
         ))
