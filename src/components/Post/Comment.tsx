@@ -19,7 +19,6 @@ interface GetCommentByPostResponse {
 const Comment = () => {
   const { id } = useParams();
   const [comments, setComment] = useState<Comments[]>([]);
-  console.log(comments);
 
   useEffect(() => {
     axios
@@ -30,6 +29,7 @@ const Comment = () => {
         setComment(response.data.postComments);
       })
       .catch((error) => console.log(error));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -58,7 +58,7 @@ const Comment = () => {
           </div>
         ))
       ) : (
-        <p>Il n'y a pas de commentaire pour l'instant</p>
+        <p>Aucun commentaire</p>
       )}
     </div>
   );

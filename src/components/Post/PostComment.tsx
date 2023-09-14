@@ -4,31 +4,27 @@ import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCookies } from 'react-cookie';
-import { UserContext } from '../contexts/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 import { useContext } from 'react';
 
 const PostComment = () => {
   const { id } = useParams();
-  const [token] = useCookies('token');
-  const { user, setUser } = useContext(UserContext);
-  console.log('POSTCOMMENT : ', user);
+  const [token] = useCookies(['token']);
+  const { user } = useContext(UserContext);
 
   const onPosting = (data: FormData) => {
     const newComment = {
       body: data.comment,
       post: id,
     };
+    console.log(id);
 
     axios
-      .post(
-        'http://127.0.0.1:3000/api/comment',
-        { newComment },
-        {
-          headers: {
-            Authorization: token.token as string,
-          },
-        }
-      )
+      .post('http://127.0.0.1:3000/api/comment', newComment, {
+        headers: {
+          Authorization: token.token as string,
+        },
+      })
       .then((response) => console.log(response, data))
       .catch((error) => console.log(error));
   };
@@ -73,6 +69,7 @@ const PostComment = () => {
         </div>
         <div className="flex flex-col p-2 w-full mx-auto border rounded-md">
           <form
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onSubmit={handleSubmit(onPosting)}
             className="flex flex-col gap-2"
           >

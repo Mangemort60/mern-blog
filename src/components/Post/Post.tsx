@@ -30,7 +30,6 @@ interface PostData {
 const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState<PostData>();
-  console.log('POST:', post);
 
   useEffect(() => {
     axios
@@ -40,6 +39,7 @@ const Post = () => {
         setPost(data);
       })
       .catch((err) => console.log(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
