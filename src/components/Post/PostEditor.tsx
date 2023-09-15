@@ -1,41 +1,31 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { useCookies } from 'react-cookie';
-import UploadImageForm from './UploadImageForm';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+interface UploadData {
+  imageUrl: string;
+}
+
+interface MyCookie {
+  token: string;
+  userId: string;
+}
+
 const PostEditor = () => {
-  const [cookie] = useCookies(['token', 'userId']);
-  const [imageUrl, setImgUrl] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [value, setValueState] = useState('');
+  const [token] = useCookies<MyCookie>(['token']);
+  const [userId] = useCookies<MyCookie>(['userId']);
 
-  const updateImageUrl = (imgUrl: string) => {
-    setImgUrl(imgUrl);
-  };
-
-  const onSubmit = (data: FormData) => {
-    console.log('form submited');
-
-    const newPost = { ...data, value, imageUrl };
-    console.log(newPost);
-
-    axios
-      .post(
-        'http://127.0.0.1:3000/api/post',
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        { ...newPost, author: cookie.userId },
-        {
-          headers: {
-            Authorization: cookie.token as string,
-          },
-        }
-      )
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+  // Fonction pour gérer le changement de fichier
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files ? e.target.files[0] : null;
+    setFile(selectedFile);
   };
 
   const schema = z.object({
@@ -50,12 +40,60 @@ const PostEditor = () => {
     body: z.string().min(10).max(1000),
   });
 
+  type FormData = z.infer<typeof schema>;
+
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = async (data: FormData) => {
+    if (!file) {
+      console.log('No file to upload');
+      return;
+    }
+
+    // Créer un FormData pour l'image
+    const imageFormData = new FormData();
+    imageFormData.append('img', file);
+
+    try {
+      // Envoyer l'image en premier
+      const imageResponse = await axios.post<UploadData>(
+        'http://127.0.0.1:3000/api/post/upload',
+        imageFormData,
+        {
+          headers: {
+            Authorization: token as string,
+          },
+        }
+      );
+
+      const imageUrl = imageResponse.data.imageUrl;
+      console.log(imageResponse.data.imageUrl);
+      console.log(imageUrl);
+
+      const postData = { ...data };
+
+      const postResponse = await axios.post(
+        'http://127.0.0.1:3000/api/post',
+        { ...postData, img: imageUrl, author: userId },
+        {
+          headers: {
+            Authorization: token as string,
+          },
+        }
+      );
+
+      console.log(postResponse.data);
+    } catch (error) {
+      console.log('Erreur lors de la création du post:', error);
+    }
+  };
 
   const onEditorStateChange = (content: string) => {
     setValue('body', content);
@@ -65,26 +103,27 @@ const PostEditor = () => {
   useEffect(() => {
     register('body', { required: true });
   }, [register]);
-  type FormData = z.infer<typeof schema>;
 
   return (
     <div>
-      <UploadImageForm updateImageUrl={updateImageUrl} />
-      <form onClick={handleSubmit(onSubmit)}>
+      <input type="file" onChange={handleFileChange} />
+
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           id="title"
           type="text"
           placeholder="Titre"
           {...register('title', { required: true })}
         />
-        <p>{errors.title?.message}</p>
+        <p>{errors.title?.message as string}</p>
         <textarea
           id="intro"
           placeholder="Introduction"
           {...register('intro', { required: true })}
         ></textarea>
-        <p>{errors.intro?.message}</p>
+        <p>{errors.intro?.message as string}</p>
         <ReactQuill theme="snow" value={value} onChange={onEditorStateChange} />
+
         <button type="submit">Poster</button>
       </form>
     </div>
