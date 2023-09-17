@@ -22,12 +22,6 @@ const PostEditor = () => {
   const [token] = useCookies<MyCookie>(['token']);
   const [userId] = useCookies<MyCookie>(['userId']);
 
-  // Fonction pour gérer le changement de fichier
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files ? e.target.files[0] : null;
-    setFile(selectedFile);
-  };
-
   const schema = z.object({
     title: z
       .string()
@@ -39,9 +33,6 @@ const PostEditor = () => {
       .max(400, { message: "l'intro doit comporter au maximum 400 caractère" }),
     body: z.string().min(10).max(1000),
   });
-
-  type FormData = z.infer<typeof schema>;
-
   const {
     register,
     handleSubmit,
@@ -51,18 +42,30 @@ const PostEditor = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data: FormData) => {
-    if (!file) {
-      console.log('No file to upload');
-      return;
-    }
+  useEffect(() => {
+    register('body', { required: true });
+  }, [register]);
 
-    // Créer un FormData pour l'image
+  if (!file) {
+    console.log('No file to upload');
+    return;
+  }
+
+  // Fonction pour gérer le changement de fichier, recupère le fichier selectionnée, et setFile.
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files ? e.target.files[0] : null;
+    setFile(selectedFile);
+  };
+
+  type FormData = z.infer<typeof schema>;
+
+  const onSubmit = async (data: FormData) => {
+    // Créer un FormData pour l'image, on crée le champ img et on ajoute le fichier
     const imageFormData = new FormData();
     imageFormData.append('img', file);
 
     try {
-      // Envoyer l'image en premier
+      // upload de l'image
       const imageResponse = await axios.post<UploadData>(
         'http://127.0.0.1:3000/api/post/upload',
         imageFormData,
@@ -73,10 +76,8 @@ const PostEditor = () => {
         }
       );
 
+      // publier le post
       const imageUrl = imageResponse.data.imageUrl;
-      console.log(imageResponse.data.imageUrl);
-      console.log(imageUrl);
-
       const postData = { ...data };
 
       const postResponse = await axios.post(
@@ -95,14 +96,11 @@ const PostEditor = () => {
     }
   };
 
+  // on recupère le contenu de l'editeur, on le met dans le champ body defini par setValue qui vient de useForm
   const onEditorStateChange = (content: string) => {
     setValue('body', content);
     setValueState(content);
   };
-
-  useEffect(() => {
-    register('body', { required: true });
-  }, [register]);
 
   return (
     <div>
