@@ -46,11 +46,6 @@ const PostEditor = () => {
     register('body', { required: true });
   }, [register]);
 
-  if (!file) {
-    console.log('No file to upload');
-    return;
-  }
-
   // Fonction pour gérer le changement de fichier, recupère le fichier selectionnée, et setFile.
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files ? e.target.files[0] : null;
@@ -60,6 +55,10 @@ const PostEditor = () => {
   type FormData = z.infer<typeof schema>;
 
   const onSubmit = async (data: FormData) => {
+    if (!file) {
+      console.log('No file to upload');
+      return;
+    }
     // Créer un FormData pour l'image, on crée le champ img et on ajoute le fichier
     const imageFormData = new FormData();
     imageFormData.append('img', file);
@@ -71,7 +70,7 @@ const PostEditor = () => {
         imageFormData,
         {
           headers: {
-            Authorization: token as string,
+            Authorization: token.token as string,
           },
         }
       );
@@ -82,10 +81,10 @@ const PostEditor = () => {
 
       const postResponse = await axios.post(
         'http://127.0.0.1:3000/api/post',
-        { ...postData, img: imageUrl, author: userId },
+        { ...postData, img: imageUrl, author: userId.userId },
         {
           headers: {
-            Authorization: token as string,
+            Authorization: token.token as string,
           },
         }
       );

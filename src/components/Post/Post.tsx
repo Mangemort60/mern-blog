@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
+import HTMLReactParser from 'html-react-parser';
 
 interface ApiResponse {
   post: PostData;
@@ -66,7 +67,7 @@ const Post = () => {
         </p>
       </div>
       <p className="my-4">{post?.intro}</p>
-      <p>&emsp;{post?.body} </p>
+      <p>&emsp; {HTMLReactParser(`${post?.body}`)}</p>
       <div className="flex flex-row w-full justify-end mt-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
