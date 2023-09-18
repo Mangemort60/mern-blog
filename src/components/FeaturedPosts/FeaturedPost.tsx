@@ -9,6 +9,7 @@ const FeaturedPost = ({ posts }: FeaturedPostProps) => {
   // const [postId, setPostId] = useParams();
 
   if (posts && posts.length > 0) {
+    console.log(posts[posts.length - 1].img);
     return (
       <Link
         to={`/post/${posts[posts.length - 1]._id}`}

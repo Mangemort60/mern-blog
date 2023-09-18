@@ -13,6 +13,7 @@ import { UserContext, User } from './contexts/UserContext';
 import { useCookies } from 'react-cookie';
 import PostEditor from './components/Post/PostEditor';
 import 'flowbite';
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 
 export interface PostTypes {
   _id: string;
@@ -69,6 +70,7 @@ function App() {
         <Route path="/post/:id" element={<Post />} />
         <Route path="/post/editor" element={<PostEditor />} />
         <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/admin" element={<AdminDashboard posts={posts} />} />
       </Routes>
       <Footer />
     </>
