@@ -18,7 +18,7 @@ export interface MyCookie {
   userId: string;
 }
 
-interface ApiGetPostResponse {
+export interface ApiGetPostResponse {
   post: PostTypes;
 }
 

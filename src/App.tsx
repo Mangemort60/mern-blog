@@ -18,10 +18,10 @@ import UpdatePost from './components/Post/UpdatePost';
 
 export interface PostTypes {
   _id: string;
-  author: User;
+  author: User[] | null;
   body: string;
   comment: string[];
-  date: Date;
+  date: Date | null;
   img: string;
   tags: string[];
   title: string;
