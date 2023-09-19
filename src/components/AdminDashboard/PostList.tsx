@@ -1,19 +1,45 @@
+import { Link } from 'react-router-dom';
 import { AdminDashBoardPostProps } from './AdminDashboard';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import { MyCookie } from '../Post/UpdatePost';
 
 const PostList = ({ posts }: AdminDashBoardPostProps) => {
+  const [cookies] = useCookies(['token']);
+
+  const onDelete = async (id: string) => {
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:3000/api/post/delete/${id}`,
+        {
+          headers: {
+            Authorization: (cookies as MyCookie).token,
+          },
+        }
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       {(posts?.length ?? 0) > 0 ? (
         posts?.map((post) => (
           <div
-            className="sm:m-auto m-6 border shadow-sm flex justify-between sm:w-4/6 "
+            className="sm:m-auto sm:mt-6 m-6 border shadow-sm flex justify-between sm:w-4/6 "
             key={post._id}
           >
             <h3>{post.title}</h3>
-            <span>Auteur</span>
+            <span>{post.author.pseudo}</span>
             <div className="">
-              <button>editer</button>
-              <button>supprimer</button>
+              <Link to={`/post/update/${post._id}`}>
+                <button>editer</button>
+              </Link>
+
+              <button onClick={() => onDelete(post._id)}>supprimer</button>
             </div>
           </div>
         ))
