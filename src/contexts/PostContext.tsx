@@ -9,12 +9,12 @@ import { PostTypes } from '../App';
 
 //set context
 export interface PostContextInterface {
-  post: PostTypes[];
-  setPost: Dispatch<SetStateAction<PostTypes[]>>;
+  posts: PostTypes[];
+  setPosts: Dispatch<SetStateAction<PostTypes[]>>;
 }
 
 const defaultState = {
-  post: [
+  posts: [
     {
       _id: '',
       author: null,
@@ -27,7 +27,7 @@ const defaultState = {
       intro: '',
     },
   ],
-  setPost: (post: PostTypes[]) => {},
+  setPosts: (post: PostTypes[]) => {},
 } as PostContextInterface;
 
 export const PostContext = createContext(defaultState);
@@ -37,7 +37,7 @@ interface PostProviderProps {
 }
 
 export default function PostProvider({ children }: PostProviderProps) {
-  const [post, setPost] = useState<PostTypes[]>([
+  const [posts, setPosts] = useState<PostTypes[]>([
     {
       _id: '',
       author: null,
@@ -52,7 +52,7 @@ export default function PostProvider({ children }: PostProviderProps) {
   ]);
 
   return (
-    <PostContext.Provider value={{ post, setPost }}>
+    <PostContext.Provider value={{ posts, setPosts }}>
       {children}
     </PostContext.Provider>
   );

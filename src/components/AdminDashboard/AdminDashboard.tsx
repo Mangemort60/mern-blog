@@ -7,7 +7,7 @@ export interface AdminDashBoardPostProps {
   posts: PostTypes[] | undefined;
 }
 
-const AdminDashboard = ({ posts }: AdminDashBoardPostProps) => {
+const AdminDashboard = () => {
   const [currentComponent, setCurrentComponent] = useState('');
 
   const showComponent = () => {
@@ -15,7 +15,7 @@ const AdminDashboard = ({ posts }: AdminDashBoardPostProps) => {
       case 'User':
         return <UserList />;
       case 'Posts':
-        return <PostList posts={posts} />;
+        return <PostList />;
       default:
         return <div>Choisissez une option</div>;
     }

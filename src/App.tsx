@@ -15,6 +15,7 @@ import PostEditor from './components/Post/PostEditor';
 import 'flowbite';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import UpdatePost from './components/Post/UpdatePost';
+import { PostContext } from './contexts/PostContext';
 
 export interface PostTypes {
   _id: string;
@@ -33,7 +34,7 @@ interface GetUserResponse {
 }
 
 function App() {
-  const [posts, setPosts] = useState<PostTypes[]>();
+  const { posts, setPosts } = useContext(PostContext);
   const [cookies] = useCookies(['userId', 'token']);
   const { setUser } = useContext(UserContext);
 
@@ -72,7 +73,7 @@ function App() {
         <Route path="/post/editor" element={<PostEditor />} />
         <Route path="/post/update/:id" element={<UpdatePost />} />
         <Route path="/user-profile" element={<UserProfile />} />
-        <Route path="/admin" element={<AdminDashboard posts={posts} />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
       <Footer />
     </>

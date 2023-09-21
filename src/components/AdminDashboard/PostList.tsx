@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
-import { AdminDashBoardPostProps } from './AdminDashboard';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { MyCookie } from '../Post/UpdatePost';
 import { PostContext } from '../../contexts/PostContext';
 import { useContext } from 'react';
 
-const PostList = ({ posts }: AdminDashBoardPostProps) => {
+const PostList = () => {
   const [cookies] = useCookies(['token']);
-  const { post, setPost } = useContext(PostContext);
+  const { posts, setPosts } = useContext(PostContext);
 
   const onDelete = async (id: string) => {
     try {
@@ -22,7 +21,7 @@ const PostList = ({ posts }: AdminDashBoardPostProps) => {
       );
       const updatedPosts = posts?.filter((post) => post._id !== id);
       if (updatedPosts) {
-        setPost(updatedPosts);
+        setPosts(updatedPosts);
       }
       console.log(response.data);
     } catch (error) {
@@ -39,7 +38,7 @@ const PostList = ({ posts }: AdminDashBoardPostProps) => {
             key={post._id}
           >
             <h3>{post.title}</h3>
-            <span>{post.author?.pseudo}</span>
+            <span>{post.author.pseudo}</span>
             <div className="">
               <Link to={`/post/update/${post._id}`}>
                 <button>editer</button>
