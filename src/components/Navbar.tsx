@@ -1,7 +1,9 @@
 import { Collapse } from 'flowbite';
-import img from '../assets/profile-pic.png';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
+import defaultHeadshot from '../assets/defaultHeadshot.webp';
 
 const Navbar = () => {
   // script pour la fonction collapse de la navbar FlowBite
@@ -10,6 +12,8 @@ const Navbar = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const [_Cookies, _setCookies, RemoveCookies] = useCookies();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const [cookies] = useCookies(['userId', 'token']);
 
   const HandleLogout = () => {
     RemoveCookies('token');
@@ -37,7 +41,12 @@ const Navbar = () => {
         <div className="font-thin max-w-screen-xl flex flex-wrap items-center justify-end mx-auto p-4">
           {/* element user */}
           <div className="flex items-center md:order-2">
-            <p className="hidden md:block p-3">pseudo</p>
+            {cookies.token && cookies.userId ? (
+              <p className="hidden md:block p-3">Hello {user.pseudo} !</p>
+            ) : (
+              <p>se connecter</p>
+            )}
+
             <button
               type="button"
               className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -49,7 +58,7 @@ const Navbar = () => {
               <span className="sr-only">Open user menu</span>
               <img
                 className="w-8 h-8 rounded-full"
-                src={img}
+                src={user.headshot || defaultHeadshot}
                 alt="user photo"
               />
             </button>

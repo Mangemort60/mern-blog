@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useCookies } from 'react-cookie';
@@ -9,39 +9,23 @@ import 'react-quill/dist/quill.snow.css';
 import { useParams } from 'react-router-dom';
 import { PostTypes } from '../../App';
 
-interface UploadData {
-  imageUrl: string;
-}
-
-export interface MyCookie {
-  token: string;
-  userId: string;
-}
-
-export interface ApiGetPostResponse {
+interface ApiGetPostResponse {
   post: PostTypes;
 }
 
 const PostEditor = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const [cookies] = useCookies(['token']);
-  console.log(cookies.token);
-
+  const [cookies] = useCookies(['token', 'userId']);
   const [editorValue, setEditorValue] = useState('');
+
   const { id } = useParams();
   const [post, setPost] = useState<PostTypes>();
 
   const schema = z.object({
-    title: z
-      .string()
-      .min(10, { message: 'le titre doit comporter au minimum 10 caractères' })
-      .max(60, { message: 'le titre doit comporter au maximum 60 caractère' }),
-    intro: z
-      .string()
-      .min(10, { message: "l'intro doit comporter au minimum 10 caractères" })
-      .max(400, { message: "l'intro doit comporter au maximum 400 caractère" }),
-    body: z.string().min(10).max(1000),
+    title: z.string().min(10).max(100),
+    intro: z.string().min(10).max(500),
+    body: z.string().min(10).max(10000),
   });
+
   const {
     register,
     handleSubmit,
@@ -55,15 +39,6 @@ const PostEditor = () => {
     register('body', { required: true });
   }, [register]);
 
-  // Fonction pour gérer le changement de fichier, recupère le fichier selectionnée, et setFile.
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files ? e.target.files[0] : null;
-    setFile(selectedFile);
-  };
-
-  type FormData = z.infer<typeof schema>;
-
-  // recupère le contenu du post et met les valeurs dans les champs appropriés
   useEffect(() => {
     axios
       .get<ApiGetPostResponse>(`http://127.0.0.1:3000/api/post/get/${id}`)
@@ -71,62 +46,37 @@ const PostEditor = () => {
         setPost(response.data.post);
         setValue('title', response.data.post.title);
         setValue('intro', response.data.post.intro);
+        setValue('body', response.data.post.body);
         setEditorValue(response.data.post.body);
-        if (!response.data.post.body) {
-          setEditorValue(response.data.post.body);
-        }
       })
       .catch((error) => {
         console.log(error);
       });
   }, [id, setValue]);
 
-  const onSubmit = async (data: FormData) => {
-    console.log('on Submit submitted');
+  type FormData = z.infer<typeof schema>;
 
-    if (!file) {
-      console.log('No file to upload');
-      return;
-    }
-    // Créer un FormData pour l'image, on crée le champ img et on ajoute le fichier
-    const imageFormData = new FormData();
-    imageFormData.append('img', file);
-
+  const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
-      // upload de l'image
-      const imageResponse = await axios.post<UploadData>(
-        'http://127.0.0.1:3000/api/post/upload',
-        imageFormData,
-        {
-          headers: {
-            Authorization: (cookies as MyCookie).token,
-          },
-        }
-      );
-
-      // publier le post
-      const imageUrl = imageResponse.data.imageUrl;
       const postData = { ...data };
-
       const postResponse = await axios.put(
-        ` http://127.0.0.1:3000/api/post/update/${id}`,
-        { ...postData, img: imageUrl, body: editorValue },
+        `http://127.0.0.1:3000/api/post/update/${id}`,
+        { ...postData, body: editorValue },
         {
           headers: {
-            Authorization: (cookies as MyCookie).token,
+            Authorization: cookies.token as string,
           },
         }
       );
 
       console.log(postResponse.data);
     } catch (error) {
-      console.log('Erreur lors de la création du post:', error);
+      console.log('Erreur lors de la mise à jour du post:', error);
     }
   };
 
-  // on recupère le contenu de l'editeur, on le met dans le champ body defini par setValue qui vient de useForm
   const onEditorStateChange = (content: string) => {
-    setValue('body', content); // Vous pouvez ajouter cette ligne
+    setValue('body', content);
     setEditorValue(content);
   };
 
@@ -137,30 +87,40 @@ const PostEditor = () => {
   }, [post]);
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} defaultValue={post?.img} />
-
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="flex flex-col gap-2 items-center font-nunito md:w-3/6 m-auto">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-2 md:w-full mx-2"
+      >
         <input
           id="title"
           type="text"
           placeholder="Titre"
+          className="w-full border-none shadow-sm"
           {...register('title', { required: true })}
         />
-        <p>{errors.title?.message}</p>
+        <p className="text-red-600 text-xs">{errors.title?.message}</p>
         <textarea
           id="intro"
           placeholder="Introduction"
+          className="w-full  border-none shadow-sm min-h-[400px]"
           {...register('intro', { required: true })}
         ></textarea>
-        <p>{errors.intro?.message}</p>
-        <ReactQuill
-          theme="snow"
-          value={editorValue}
-          onChange={onEditorStateChange}
-        />
-
-        <button type="submit">Poster</button>
+        <p className="text-red-600 text-xs">{errors.intro?.message}</p>
+        <div className="h-[800px] ">
+          <ReactQuill
+            theme="snow"
+            value={editorValue}
+            onChange={onEditorStateChange}
+            className="h-[750px] "
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-gray-100 hover:bg-gray-300 text-black font-bold py-2 px-4 mt-2 rounded-sm focus:outline-none focus:shadow-outline"
+        >
+          Poster
+        </button>
       </form>
     </div>
   );

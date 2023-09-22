@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import {
   createContext,
   useState,
@@ -16,7 +19,6 @@ export interface User {
   isAdmin: boolean;
   posts: string[];
 }
-
 //set context
 export interface UserContextInterface {
   user: User;

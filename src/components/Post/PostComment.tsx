@@ -11,6 +11,7 @@ const PostComment = () => {
   const { id } = useParams();
   const [token] = useCookies(['token']);
   const { user } = useContext(UserContext);
+  console.log('POST COMMENT', user);
 
   const onPosting = (data: FormData) => {
     const newComment = {

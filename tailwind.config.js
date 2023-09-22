@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         josefin: ['"Josefin Slab"', 'serif'],
         lora: ['Lora', 'serif'],
+        nunito: ['Nunito Sans', 'sans-serif'],
       },
     },
   },

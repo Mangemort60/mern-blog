@@ -100,26 +100,57 @@ const PostEditor = () => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="flex flex-col gap-2 items-center font-nunito md:w-3/6 m-auto">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-2 md:w-full"
+      >
         <input
           id="title"
           type="text"
           placeholder="Titre"
+          className="w-full border-none shadow-sm"
           {...register('title', { required: true })}
         />
-        <p>{errors.title?.message as string}</p>
+        <p className="text-red-600 text-xs">{errors.title?.message}</p>
         <textarea
           id="intro"
+          className="w-full  border-none shadow-sm min-h-[400px]"
           placeholder="Introduction"
           {...register('intro', { required: true })}
         ></textarea>
-        <p>{errors.intro?.message as string}</p>
-        <ReactQuill theme="snow" value={value} onChange={onEditorStateChange} />
+        <p className="text-red-600 text-xs">{errors.intro?.message}</p>
 
-        <button type="submit">Poster</button>
+        <div className="h-[800px] ">
+          <ReactQuill
+            theme="snow"
+            value={value}
+            onChange={onEditorStateChange}
+            className="h-[750px] "
+          />
+        </div>
+
+        <div className="flex flex-col text-xs">
+          <label
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            htmlFor="file_input"
+          >
+            Uploader une image
+          </label>
+          <input
+            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="upload"
+            type="file"
+            onChange={handleFileChange}
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-gray-100 hover:bg-gray-300 text-black font-bold py-2 px-4 mt-2 rounded-sm focus:outline-none focus:shadow-outline "
+        >
+          Poster
+        </button>
       </form>
     </div>
   );
