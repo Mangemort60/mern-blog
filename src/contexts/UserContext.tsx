@@ -23,6 +23,8 @@ export interface User {
 export interface UserContextInterface {
   user: User;
   setUser: Dispatch<SetStateAction<User>>;
+  isUserLoading: boolean;
+  setIsUserLoading: Dispatch<SetStateAction<boolean>>;
 }
 const defaultState = {
   user: {
@@ -35,6 +37,8 @@ const defaultState = {
     posts: [''],
   },
   setUser: (user: User) => {},
+  isUserLoading: true,
+  setIsUserLoading: (_loading: boolean) => {},
 } as UserContextInterface;
 
 export const UserContext = createContext(defaultState);
@@ -44,6 +48,7 @@ interface UserProviderProps {
 }
 
 export default function UserProvider({ children }: UserProviderProps) {
+  const [isUserLoading, setIsUserLoading] = useState(true);
   const [user, setUser] = useState<User>({
     _id: '',
     email: '',
@@ -55,7 +60,9 @@ export default function UserProvider({ children }: UserProviderProps) {
   });
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider
+      value={{ user, setUser, isUserLoading, setIsUserLoading }}
+    >
       {children}
     </UserContext.Provider>
   );

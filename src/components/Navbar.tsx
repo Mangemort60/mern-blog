@@ -1,9 +1,10 @@
 import { Collapse } from 'flowbite';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import defaultHeadshot from '../assets/defaultHeadshot.webp';
+import { set } from 'react-hook-form';
 
 const Navbar = () => {
   // script pour la fonction collapse de la navbar FlowBite
@@ -12,14 +13,21 @@ const Navbar = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const [_Cookies, _setCookies, RemoveCookies] = useCookies();
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [cookies] = useCookies(['userId', 'token']);
+  const [isOpen, setIsOpen] = useState(false);
+
+  console.log(user.pseudo);
 
   const HandleLogout = () => {
     RemoveCookies('token');
     RemoveCookies('userId');
     navigate('/login');
   };
+
+  // useEffect(() => {
+  //   console.log('user a jour');
+  // }, [user]);
 
   new Collapse(targetEl, triggerEl);
 
@@ -40,54 +48,63 @@ const Navbar = () => {
         </div>
         <div className="font-thin max-w-screen-xl flex flex-wrap items-center justify-end mx-auto p-4">
           {/* element user */}
-          <div className="flex items-center md:order-2">
-            {cookies.token && cookies.userId ? (
-              <p className="hidden md:block p-3">Hello {user.pseudo} !</p>
-            ) : (
-              <p>se connecter</p>
-            )}
 
+          <div
+            className={`${
+              cookies.token && cookies.userId ? 'flex ' : 'invisible'
+            } items-center md:order-2 mr-2`}
+          >
+            <p>Salut {user.pseudo} !</p>
+          </div>
+          <div className="flex items-center md:order-2">
             <button
               type="button"
-              className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+              className={`${
+                cookies.token && cookies.userId ? 'flex ' : 'invisible '
+              } mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600`}
               id="user-menu-button"
               aria-expanded="false"
               data-dropdown-toggle="user-dropdown"
               data-dropdown-placement="bottom"
+              onClick={() => setIsOpen(!isOpen)}
             >
               <span className="sr-only">Open user menu</span>
               <img
                 className="w-8 h-8 rounded-full"
-                src={user.headshot || defaultHeadshot}
+                src={
+                  cookies.token && cookies.userId
+                    ? user.headshot
+                    : defaultHeadshot
+                }
                 alt="user photo"
               />
             </button>
             <div
-              className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+              className={`z-50 ${isOpen ? 'block' : 'hidden'}
+              my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
               id="user-dropdown"
             >
               <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900 dark:text-white">
-                  Hafid HADDAOUI
-                </span>
                 <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                  hahaddaoui@gmail.com
+                  {cookies.token && cookies.userId ? user.email : 'anonyme'}
                 </span>
               </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to={'/user-profile'}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    onClick={() => setIsOpen(false)}
                   >
                     Mon Profil
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
+                      setIsOpen(false);
                       HandleLogout();
                     }}
                   >
@@ -111,6 +128,7 @@ const Navbar = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 17 14"
+              onClick={() => setIsOpen(false)}
             >
               <path
                 stroke="currentColor"

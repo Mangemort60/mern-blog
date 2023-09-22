@@ -38,6 +38,8 @@ function App() {
   const { posts, setPosts, setIsLoading, isLoading } = useContext(PostContext);
   const [cookies] = useCookies(['userId', 'token']);
   const { user, setUser } = useContext(UserContext);
+  const { isUserLoading, setIsUserLoading } = useContext(UserContext);
+
   console.log('IS ADMIN APP : ', user.isAdmin);
 
   useEffect(() => {
@@ -48,8 +50,14 @@ function App() {
         )
         .then((response) => {
           setUser(response.data.user);
+          setIsUserLoading(false);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          setIsUserLoading(false);
+        });
+    } else {
+      setIsUserLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cookies.userId, cookies.token]);
@@ -76,7 +84,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/post/:id" element={<Post />} />
         <Route path="/user-profile" element={<UserProfile />} />
-        <Route element={<ProtectedAdminRoute user={user.isAdmin} />}>
+        <Route element={<ProtectedAdminRoute user={user} />}>
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/post/editor" element={<PostEditor />} />
           <Route path="/post/update/:id" element={<UpdatePost />} />
