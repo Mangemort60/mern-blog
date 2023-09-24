@@ -44,13 +44,13 @@ const Post = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center m-2 font-lora">
+    <div className="flex flex-col items-start m-2 font-unito mt-8 md:w-1/2 md:m-auto md:mt-16">
       <img
         src={post?.img}
         alt={post?.img}
         className="h-[600px] w-full object-cover"
       />
-      <h1 className="text-2xl my-6 font-semibold">{post?.title}</h1>
+      <h1 className="text-2xl my-8 font-semibold">{post?.title}</h1>
       <div className="flex w-full text-gray-400">
         <div className="flex">
           <p className="text-sm">By {post?.author.pseudo}</p>
@@ -66,7 +66,7 @@ const Post = () => {
             : 'Date inconnue'}
         </p>
       </div>
-      <p className="my-4">{post?.intro}</p>
+      <p className="my-8">{post?.intro}</p>
       <p>&emsp; {HTMLReactParser(`${post?.body}`)}</p>
       <div className="flex flex-row w-full justify-end mt-4">
         <svg

@@ -36,7 +36,7 @@ const defaultState = {
     isAdmin: false,
     posts: [''],
   },
-  setUser: (user: User) => {},
+  setUser: (_user: User) => {},
   isUserLoading: true,
   setIsUserLoading: (_loading: boolean) => {},
 } as UserContextInterface;

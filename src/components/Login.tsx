@@ -13,8 +13,8 @@ interface ResponseData {
 }
 
 const Login = () => {
-  const [cookies, setCookie, removeCookie] = useCookies<string>([]);
-  const { user, setUser } = useContext(UserContext);
+  const [, setCookie] = useCookies<string>([]);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const onSubmit = (data: FormData) => {

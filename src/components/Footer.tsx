@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="text-thin bg-white dark:bg-gray-900 my-4 mt-[100px]">
+    <footer className="font-nunito bg-white dark:bg-gray-900 my-4 mt-[100px]">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a href="https://flowbite.com/" className="flex items-center">
@@ -9,7 +9,7 @@ const Footer = () => {
               className="h-12 mr-3"
               alt="Sun"
             />
-            <h1 className=" text-2xl font-josefin whitespace-nowrap dark:text-white">
+            <h1 className=" text-2xl font-nunito whitespace-nowrap dark:text-white">
               Blog
             </h1>
           </a>

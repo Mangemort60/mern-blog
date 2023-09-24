@@ -35,12 +35,10 @@ interface GetUserResponse {
 }
 
 function App() {
-  const { posts, setPosts, setIsLoading, isLoading } = useContext(PostContext);
+  const { setPosts, setIsLoading } = useContext(PostContext);
   const [cookies] = useCookies(['userId', 'token']);
   const { user, setUser } = useContext(UserContext);
-  const { isUserLoading, setIsUserLoading } = useContext(UserContext);
-
-  console.log('IS ADMIN APP : ', user.isAdmin);
+  const { setIsUserLoading } = useContext(UserContext);
 
   useEffect(() => {
     if (cookies.userId && cookies.token) {
@@ -63,8 +61,6 @@ function App() {
   }, [cookies.userId, cookies.token]);
 
   useEffect(() => {
-    console.log('GET POST APP');
-
     axios
       .get<PostTypes[]>('http://127.0.0.1:3000/api/posts')
       .then((response) => {
@@ -73,6 +69,7 @@ function App() {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

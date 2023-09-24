@@ -1,10 +1,9 @@
 import { Collapse } from 'flowbite';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import defaultHeadshot from '../assets/defaultHeadshot.webp';
-import { set } from 'react-hook-form';
 
 const Navbar = () => {
   // script pour la fonction collapse de la navbar FlowBite
@@ -13,11 +12,9 @@ const Navbar = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const [_Cookies, _setCookies, RemoveCookies] = useCookies();
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [cookies] = useCookies(['userId', 'token']);
   const [isOpen, setIsOpen] = useState(false);
-
-  console.log(user.pseudo);
 
   const HandleLogout = () => {
     RemoveCookies('token');
@@ -25,38 +22,44 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  // useEffect(() => {
-  //   console.log('user a jour');
-  // }, [user]);
-
   new Collapse(targetEl, triggerEl);
 
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
-        <div className="flex justify-center ">
+      <nav className="bg-white border-gray-200 dark:bg-gray-900 font-nunito">
+        <div className="flex justify-center mt-8">
           <Link to="/" className="flex items-center">
             <img
               src="../../public/sunicon-1.webp"
               className="h-12 mr-3"
               alt="Sun"
             />
-            <h1 className="font-josefin Slab text-4xl whitespace-nowrap dark:text-white">
+            <h1 className=" Slab text-4xl whitespace-nowrap dark:text-white">
               Blog
             </h1>
           </Link>
         </div>
-        <div className="font-thin max-w-screen-xl flex flex-wrap items-center justify-end mx-auto p-4">
+        <div className="font-thin max-w-screen-xl flex flex-wrap items-center justify-end mx-auto mt-8 p-4">
           {/* element user */}
-
           <div
             className={`${
               cookies.token && cookies.userId ? 'flex ' : 'invisible'
             } items-center md:order-2 mr-2`}
           >
-            <p>Salut {user.pseudo} !</p>
+            <p className="font-normal">Salut {user.pseudo} !</p>
           </div>
           <div className="flex items-center md:order-2">
+            <Link
+              to={'/login'}
+              className={`md:order-2 ${
+                !cookies.token && !cookies.userId ? 'flex ' : 'invisible '
+              }  gap-2`}
+            >
+              <button className="border-2 border-black px-4 py-1  font-normal">
+                Login
+              </button>
+            </Link>
+
             <button
               type="button"
               className={`${
@@ -141,10 +144,10 @@ const Navbar = () => {
           </button>
           {/* navbar menu */}
           <div
-            className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 sm:m-auto"
+            className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 sm:m-auto "
             id="navbar-user"
           >
-            <ul className="sm:relative left-16 flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="sm:relative left-32  flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 font-normal ">
               <li>
                 <a
                   href="#"
@@ -159,6 +162,14 @@ const Navbar = () => {
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   A propos
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Offre
                 </a>
               </li>
 
