@@ -8,6 +8,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useParams } from 'react-router-dom';
 import { PostTypes } from '../../App';
+import fullToolbarOptions from '../../helpers/reactQuillconfig';
 
 interface ApiGetPostResponse {
   post: PostTypes;
@@ -113,6 +114,7 @@ const PostEditor = () => {
             value={editorValue}
             onChange={onEditorStateChange}
             className="h-[750px] "
+            modules={fullToolbarOptions}
           />
         </div>
         <button

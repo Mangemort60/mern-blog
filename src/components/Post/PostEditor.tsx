@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { useCookies } from 'react-cookie';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import fullToolbarOptions from '../../helpers/reactQuillconfig';
 
 interface UploadData {
   imageUrl: string;
@@ -127,10 +128,11 @@ const PostEditor = () => {
             value={value}
             onChange={onEditorStateChange}
             className="h-[750px] "
+            modules={fullToolbarOptions}
           />
         </div>
 
-        <div className="flex flex-col text-xs">
+        <div className="flex flex-col text-xs mt-12">
           <label
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             htmlFor="file_input"

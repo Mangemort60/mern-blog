@@ -47,7 +47,27 @@ const PostList = () => {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 flex flex-col items-center ">
+      <Link
+        to="/post/editor"
+        className="border-2  sm:w-4/6 w-4/6 h-44 flex justify-center items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-8 h-8 text-gray-400"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </Link>
+
       {(posts?.length ?? 0) > 0 ? (
         posts?.map((post) => (
           <div
@@ -59,7 +79,7 @@ const PostList = () => {
             </Link>
 
             <div className="flex justify-between text-gray-400">
-              <span>de {post.author.pseudo}</span>
+              <span>de {post.author?.pseudo}</span>
               <Link to={`/post/update/${post._id}`} className="ml-auto mr-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -37,6 +37,7 @@ const Navbar = () => {
             <h1 className=" Slab text-4xl whitespace-nowrap dark:text-white">
               Blog
             </h1>
+            <span>admin</span>
           </Link>
         </div>
         <div className="font-thin max-w-screen-xl flex flex-wrap items-center justify-end mx-auto mt-8 p-4">

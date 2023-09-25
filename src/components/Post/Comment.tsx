@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 import PostComment from './PostComment';
 import { useCookies } from 'react-cookie';
@@ -81,8 +81,19 @@ const Comment = () => {
 
   return (
     <div className="flex flex-col gap-6  mx-auto mt-8  w-full">
-      <h3 className=" text-lg font-semibold text-gray-900">Commentaires</h3>
-      <PostComment setComment={setComment} />
+      <h3 className=" text-2xl font-semibold text-gray-900">Commentaires</h3>
+      {cookies.userId && cookies.token ? (
+        <PostComment setComment={setComment} />
+      ) : (
+        <p>
+          <Link to="/login">
+            <span className="text-blue-700 font-semibold underline">
+              Connectez vous
+            </span>
+          </Link>{' '}
+          pour poster un commentaire
+        </p>
+      )}
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div className="flex" key={comment._id}>

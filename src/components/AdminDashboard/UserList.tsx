@@ -64,14 +64,18 @@ const UserList = () => {
         users?.map((user) => (
           <div className="p-4" key={user._id}>
             <div className="sm:m-auto flex justify-between items-center sm:w-4/6 h-23">
-              <span>{user.pseudo}</span>
-              <Link to={'/user-profile'} className="ml-auto flex items-center">
+              <Link
+                to={`/user-profile/${user.pseudo}`}
+                className="mr-auto flex items-center"
+              >
                 <img
-                  className="w-8 h-8 rounded-full ml-auto mr-2 mb-1"
+                  className="w-8 h-8 rounded-full  mr-2 mb-1"
                   src={user.headshot || defaultHeadshot}
                   alt="user photo"
                 />
+                <span>{user.pseudo}</span>
               </Link>
+              <span className="mr-4 text-gray-400">{user.email}</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"

@@ -43,6 +43,7 @@ const defaultState = {
 
 export const UserContext = createContext(defaultState);
 
+// provider
 interface UserProviderProps {
   children: ReactNode;
 }
