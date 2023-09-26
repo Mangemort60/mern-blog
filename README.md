@@ -11,7 +11,8 @@ Ce projet est un blog développé principalement avec React et d'autres technolo
 - TailwindCSS 3.3.3
 - TypeScript 5.0.2
 - AWS S3 pour l'upload d'images
-- ... et d'autres (voir `package.json` pour la liste complète).
+- React Quill 2.0.0
+- ... et d'autres (voir package.json pour la liste complète).
 
 ## 🌟 Caractéristiques
 
@@ -19,6 +20,7 @@ Ce projet est un blog développé principalement avec React et d'autres technolo
 - Création et modification de posts
 - Ajout et modification de commentaires
 - Interface d'administration
+- Édition et mise à jour d'articles avec React Quill
 - Possibilité de donner des droits d'auteur à un utilisateur
 
 ## 🚀 Installation
