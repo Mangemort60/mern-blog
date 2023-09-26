@@ -32,7 +32,7 @@ Ce projet est un blog développé principalement avec React et d'autres technolo
 1. **Clonez le dépôt :**
 
     ```bash
-    git clone https://github.com/[votre_username]/blog.git
+    git clone https://github.com/Mangemort60/mern-blog.git
     ```
 
 2. **Naviguez dans le dossier du projet :**
