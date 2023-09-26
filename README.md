@@ -5,12 +5,12 @@ Ce projet est un blog développé principalement avec React et d'autres technolo
 ## 🛠 Technologies utilisées
 
 - React 18.2.0
+- TypeScript 5.0.2
+- TailwindCSS 3.3.3
 - Vite 4.4.5
+- AWS S3 pour l'upload d'images
 - Axios 1.5.0
 - Zod 3.22.2
-- TailwindCSS 3.3.3
-- TypeScript 5.0.2
-- AWS S3 pour l'upload d'images
 - React Quill 2.0.0
 - ... et d'autres (voir package.json pour la liste complète).
 
