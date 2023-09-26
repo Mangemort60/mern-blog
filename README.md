@@ -38,7 +38,7 @@ Ce projet est un blog développé principalement avec React et d'autres technolo
 2. **Naviguez dans le dossier du projet :**
 
     ```bash
-    cd blog
+    cd [nom_du_dossier]
     ```
 
 3. **Installez les dépendances :**
