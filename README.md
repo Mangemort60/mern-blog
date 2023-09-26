@@ -1,27 +1,75 @@
-# React + TypeScript + Vite
+# Blog Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ce projet est un blog développé principalement avec React et d'autres technologies modernes.
 
-Currently, two official plugins are available:
+## 🛠 Technologies utilisées
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 18.2.0
+- Vite 4.4.5
+- Axios 1.5.0
+- Zod 3.22.2
+- TailwindCSS 3.3.3
+- TypeScript 5.0.2
+- AWS S3 pour l'upload d'images
+- ... et d'autres (voir `package.json` pour la liste complète).
 
-## Expanding the ESLint configuration
+## 🌟 Caractéristiques
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Authentification utilisateur
+- Création et modification de posts
+- Ajout et modification de commentaires
+- Interface d'administration
+- Possibilité de donner des droits d'auteur à un utilisateur
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 Installation
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+### Prérequis
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Node.js et npm installés
+
+### Étapes
+
+1. **Clonez le dépôt :**
+
+    ```bash
+    git clone https://github.com/[votre_username]/blog.git
+    ```
+
+2. **Naviguez dans le dossier du projet :**
+
+    ```bash
+    cd blog
+    ```
+
+3. **Installez les dépendances :**
+
+    ```bash
+    npm install
+    ```
+
+4. **Lancez le projet en mode développement :**
+
+    ```bash
+    npm run dev
+    ```
+
+5. **Ou construisez le projet pour la production :**
+
+    ```bash
+    npm run build
+    ```
+
+## 📜 Scripts npm
+
+- `npm run dev` : Lance le serveur de développement
+- `npm run build` : Construit l'application pour la production
+- `npm run lint` : Exécute ESLint sur le code source
+
+## 🤝 Comment contribuer
+
+- Faites un fork du projet
+- Créez une nouvelle branche (`git checkout -b feature`)
+- Faites vos modifications
+- Soumettez une pull request
+
+
