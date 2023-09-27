@@ -91,9 +91,8 @@ const UserList = () => {
                   Auteur
                 </span>
               </label>
-              <hr />
             </div>
-            <hr className="border" />
+            <hr className="border w-4/6 m-auto  " />
           </div>
         ))
       ) : (

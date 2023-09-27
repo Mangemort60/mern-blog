@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 import { UserContext } from '../../contexts/UserContext';
 import React, { useContext, useState } from 'react';
 import { Comments } from './Comment';
+import defaultHeadshot from '../../assets/defaultHeadshot.webp';
 
 interface ApiPostResponse {
   createdComment: Comments;
@@ -93,7 +94,7 @@ const PostComment = ({ setComment }: PostCommentProps) => {
         <div className="flex-shrink-0 mr-3">
           <img
             className="mt-2 rounded-full w-8 h-8 "
-            src={user.headshot}
+            src={user.headshot ?? defaultHeadshot}
             alt=""
           />
         </div>

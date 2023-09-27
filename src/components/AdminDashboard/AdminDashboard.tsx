@@ -23,7 +23,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="font-nunito mt-4 h-screen">
+    <div className="font-nunito mt-4">
       <div
         className="flex justify-center
       "

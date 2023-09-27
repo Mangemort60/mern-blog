@@ -10,19 +10,19 @@ const SecondFeaturedPost = () => {
   return (
     <div className="md:h-[300px] mt-4 md:m-0">
       <Link
-        to={`/post/${posts[posts.length - 2]._id}`}
+        to={`/post/${posts[1]._id}`}
         className="flex flex-col justify-between"
       >
         <img
-          src={posts[posts.length - 2].img}
+          src={posts[1].img}
           alt=""
           className="md:h-[250px] h-[600px] object-cover"
         />
         <h1
           className="text-1xl mt-2 truncate md:w-[220px]"
-          title={posts[posts.length - 2].title}
+          title={posts[1].title}
         >
-          {posts[posts.length - 2].title}
+          {posts[1].title}
         </h1>
       </Link>
       <div className="flex mt-4 ">
@@ -41,17 +41,12 @@ const SecondFeaturedPost = () => {
           />
         </svg>
         <div className="ml-auto flex items-center">
-          <p className="mr-2">
-            By
-            {posts &&
-              posts.length > 1 &&
-              posts[posts.length - 2]?.author?.[0]?.pseudo}
-          </p>
+          <p className="mr-2">By</p>
           <img
             className="w-8 h-8 rounded-full ml-auto mr-2 mb-1"
-            src={posts[posts.length - 1].author.headshot || defaultHeadshot}
+            src={posts[1].author.headshot || defaultHeadshot}
             alt="user photo"
-            title={posts[posts.length - 2].author.pseudo}
+            title={posts[1].author.pseudo}
           />
         </div>
       </div>

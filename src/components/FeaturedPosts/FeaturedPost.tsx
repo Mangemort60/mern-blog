@@ -7,26 +7,18 @@ const FeaturedPost = () => {
   const { posts } = useContext(PostContext);
   return (
     <Link
-      to={`/post/${posts[posts.length - 1]._id}`}
+      to={`/post/${posts[0]._id}`}
       className="flex flex-col md:h-auto h-[600px] justify-end col-span-2 row-span-2 text-white"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),url("${
-          posts[posts.length - 1].img
-        }")`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),url("${posts[0].img}")`,
         backgroundSize: 'cover',
       }}
     >
-      <Link
-        to={`/post/${posts[posts.length - 1]._id}`}
-        className="flex flex-col"
-      >
-        <h1
-          className="text-2xl font-normal pl-2 "
-          title={posts[posts.length - 1].title}
-        >
-          {posts[posts.length - 1].title}
+      <Link to={`/post/${posts[0]._id}`} className="flex flex-col">
+        <h1 className="text-2xl font-normal pl-2 " title={posts[0].title}>
+          {posts[0].title}
         </h1>
-        <p className="my-4 pl-2">{posts[posts.length - 1].intro}</p>
+        <p className="my-4 pl-2">{posts[0].intro}</p>
       </Link>
       <div className="flex pl-2">
         <svg
@@ -47,9 +39,11 @@ const FeaturedPost = () => {
           <p className="mr-2">By </p>
           <img
             className="w-8 h-8 rounded-full ml-auto mr-2 mb-1"
-            src={posts[posts.length - 1].author.headshot || defaultHeadshot}
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            src={posts[0].author.headshot || defaultHeadshot}
             alt="user photo"
-            title={posts[posts.length - 1].author.pseudo}
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            title={posts[0].author.pseudo}
           />
         </Link>
       </div>

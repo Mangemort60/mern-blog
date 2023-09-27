@@ -3,9 +3,12 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Register = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  console.log(errorMessage);
 
   const onSubmit = (data: FormData) => {
     axios
@@ -14,7 +17,17 @@ const Register = () => {
         console.log('compte crée avec succès', response.data);
         navigate('/login');
       })
-      .catch((err) => console.log("Erreur lors de l'enregistrement", err));
+      .catch((err) => {
+        if (
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          err.response &&
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          err.response.status === 409
+        ) {
+          setErrorMessage(`l'email ou le pseudo existent déjà`);
+        }
+        console.log(err);
+      });
   };
 
   const schema = z.object({
@@ -26,7 +39,7 @@ const Register = () => {
       }),
     pseudo: z
       .string()
-      .min(2, { message: 'Le pseudo doit contenir au minimum 2 caractères' })
+      .min(3, { message: 'Le pseudo doit contenir au minimum 2 caractères' })
       .max(30, {
         message: 'Le pseudo doit contenir au maximum 15 caractères',
       }),
@@ -50,6 +63,15 @@ const Register = () => {
 
   return (
     <div className="w-full max-w-xs m-auto mt-16 ">
+      {errorMessage && (
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong className="font-bold mr-2">Oups !</strong>
+          <span className="block sm:inline">{errorMessage}</span>
+        </div>
+      )}
       <form
         className="bg-white shadow-md rounded-sm px-8 pt-6 pb-8 mb-4"
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -69,7 +91,9 @@ const Register = () => {
             placeholder="pseudo"
             {...register('pseudo', { required: true })}
           />
-          {errors.email && <span>This field is required</span>}
+          {errors.email && (
+            <span className="text-sm text-red-600">This field is required</span>
+          )}
         </div>
 
         <div className="mb-4">
@@ -86,7 +110,9 @@ const Register = () => {
             placeholder="email"
             {...register('email', { required: true })}
           />
-          {errors.email && <span>This field is required</span>}
+          {errors.email && (
+            <span className="text-sm text-red-600">This field is required</span>
+          )}
         </div>
         <div className="mb-6">
           <label
@@ -102,7 +128,9 @@ const Register = () => {
             placeholder="******************"
             {...register('password', { required: true })}
           />
-          {errors.password && <span>This field is required</span>}
+          {errors.password && (
+            <span className="text-sm text-red-600">This field is required</span>
+          )}
         </div>
         <div className="flex items-center justify-between">
           <button

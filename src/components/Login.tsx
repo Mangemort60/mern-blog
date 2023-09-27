@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { User, UserContext } from '../contexts/UserContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 interface ResponseData {
   token: string;
@@ -15,6 +15,8 @@ interface ResponseData {
 const Login = () => {
   const [, setCookie] = useCookies<string>([]);
   const { setUser } = useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const onSubmit = (data: FormData) => {
@@ -27,16 +29,23 @@ const Login = () => {
         setUser(response.data.user);
         navigate('/');
       })
-      .catch((err) => console.log('Erreur lors de la connexion', err));
+      .catch((err) => {
+        if (
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          (err.response && err.response.status === 401) ||
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          err.response.status === 400
+        ) {
+          setErrorMessage('Email ou mot de passe incorrect');
+        }
+        console.log(err);
+      });
   };
 
   const schema = z.object({
-    email: z
-      .string()
-      .min(2, { message: "L'email doit contenir au minimum 2 caractères" })
-      .max(30, {
-        message: 'Lemail doit contenir au maximum 15 caractères',
-      }),
+    email: z.string().email('Veuillez entrer un email valide').max(30, {
+      message: 'Lemail doit contenir au maximum 15 caractères',
+    }),
     password: z
       .string()
       .min(5, {
@@ -57,6 +66,15 @@ const Login = () => {
 
   return (
     <div className="w-full max-w-xs m-auto mt-16 ">
+      {errorMessage && (
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong className="font-bold mr-2">Oups !</strong>
+          <span className="block sm:inline">{errorMessage}</span>
+        </div>
+      )}
       <form
         className="bg-white shadow-md rounded-sm px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit(onSubmit)}
@@ -75,7 +93,9 @@ const Login = () => {
             placeholder="email"
             {...register('email', { required: true })}
           />
-          {errors.email && <span>This field is required</span>}
+          {errors.email && (
+            <span className="text-sm text-red-600">{errors.email.message}</span>
+          )}
         </div>
         <div className="mb-6">
           <label
@@ -91,7 +111,11 @@ const Login = () => {
             placeholder="******************"
             {...register('password', { required: true })}
           />
-          {errors.password && <span>This field is required</span>}
+          {errors.password && (
+            <span className="text-sm text-red-600">
+              {errors.password.message}
+            </span>
+          )}
         </div>
         <div className="flex items-center justify-between">
           <button
@@ -100,6 +124,9 @@ const Login = () => {
           >
             Sign In
           </button>
+          <Link to={'/register'} type="button" className="font-semibold">
+            Register
+          </Link>
         </div>
       </form>
     </div>

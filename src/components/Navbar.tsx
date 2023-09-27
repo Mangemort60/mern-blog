@@ -27,7 +27,8 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900 font-nunito">
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-between mt-8">
+          <div></div>
           <Link to="/" className="flex items-center">
             <img
               src="../../public/sunicon-1.webp"
@@ -35,19 +36,38 @@ const Navbar = () => {
               alt="Sun"
             />
             <h1 className=" Slab text-4xl whitespace-nowrap dark:text-white">
-              Blog
+              Youssra therapie
             </h1>
-            <span>admin</span>
           </Link>
+          {user.isAdmin ? (
+            <Link to="/admin" className="mr-4 flex ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 ml-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
+                />
+              </svg>
+            </Link>
+          ) : (
+            <div></div>
+          )}
         </div>
-        <div className="font-thin max-w-screen-xl flex flex-wrap items-center justify-end mx-auto mt-8 p-4">
+        <div className="font-thin font-nunito max-w-screen-xl flex flex-wrap items-center justify-end mx-auto mt-8 p-4">
           {/* element user */}
           <div
             className={`${
               cookies.token && cookies.userId ? 'flex ' : 'invisible'
             } items-center md:order-2 mr-2`}
           >
-            <p className="font-normal">Salut {user.pseudo} !</p>
+            <p className="font-nunito font-normal">Salut {user.pseudo} !</p>
           </div>
           <div className="flex items-center md:order-2">
             <Link
@@ -75,11 +95,7 @@ const Navbar = () => {
               <span className="sr-only">Open user menu</span>
               <img
                 className="w-8 h-8 rounded-full"
-                src={
-                  cookies.token && cookies.userId
-                    ? user.headshot
-                    : defaultHeadshot
-                }
+                src={user.headshot ?? defaultHeadshot}
                 alt="user photo"
               />
             </button>

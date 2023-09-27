@@ -20,7 +20,7 @@ import ProtectedAdminRoute from './components/Routing/ProtectedAdminRoute';
 
 export interface PostTypes {
   _id: string;
-  author: User[] | null;
+  author: User;
   body: string;
   comment: string[];
   date: Date | null;

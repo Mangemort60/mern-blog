@@ -6,6 +6,7 @@ import PostComment from './PostComment';
 import { useCookies } from 'react-cookie';
 import { User } from '../../contexts/UserContext';
 import { confirmAlert } from 'react-confirm-alert';
+import defaultHeadshot from '../../assets/defaultHeadshot.webp';
 
 export interface Comments {
   _id: string;
@@ -64,7 +65,6 @@ const Comment = () => {
 
               if (updatedComment) {
                 setComment(updatedComment);
-                // setRefreshComments((prevKey) => prevKey + 1);
               }
               console.log(response.data);
             } catch (error) {
@@ -100,7 +100,7 @@ const Comment = () => {
             <div className="flex-shrink-0 mr-3">
               <img
                 className="mt-2 rounded-full w-8 h-8 "
-                src={comment.author.headshot}
+                src={comment.author.headshot || defaultHeadshot}
                 alt=""
               />
             </div>

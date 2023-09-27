@@ -5,6 +5,7 @@ import { PostContext } from '../../contexts/PostContext';
 import { useContext } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import moment from 'moment';
 
 const PostList = () => {
   const [cookies] = useCookies(['token']);
@@ -80,6 +81,12 @@ const PostList = () => {
 
             <div className="flex justify-between text-gray-400">
               <span>de {post.author?.pseudo}</span>
+              <span className="ml-2">
+                le{' '}
+                {post?.date
+                  ? moment(post.date).format('DD MMMM YYYY')
+                  : 'Date inconnue'}
+              </span>
               <Link to={`/post/update/${post._id}`} className="ml-auto mr-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
