@@ -100,19 +100,23 @@ const Comment = () => {
             <div className="flex-shrink-0 mr-3">
               <img
                 className="mt-2 rounded-full w-8 h-8 "
-                src={comment.author.headshot || defaultHeadshot}
+                src={
+                  comment.author
+                    ? comment.author.headshot || defaultHeadshot
+                    : defaultHeadshot
+                }
                 alt=""
               />
             </div>
             <div className="flex flex-col border rounded-sm w-full px-4 py-2">
               <p className="mb-4">
-                {comment.author.pseudo}{' '}
+                {comment.author ? comment.author.pseudo : <span>anonyme</span>}{' '}
                 <span className="text-xs text-gray-400">
                   {moment(comment.date).fromNow()}
                 </span>
               </p>{' '}
               <p className="text-sm">{comment.body}</p>
-              {cookies.userId === comment.author._id && (
+              {cookies.userId === comment.author?._id && (
                 <button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

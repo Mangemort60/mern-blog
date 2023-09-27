@@ -6,6 +6,7 @@ import defaultHeadshot from '../../assets/defaultHeadshot.webp';
 
 const SecondFeaturedPost = () => {
   const { posts } = useContext(PostContext);
+  console.log(posts[1].img);
 
   return (
     <div className="md:h-[300px] mt-4 md:m-0">

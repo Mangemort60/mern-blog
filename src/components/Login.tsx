@@ -23,7 +23,6 @@ const Login = () => {
     axios
       .post<ResponseData>('http://127.0.0.1:3000/api/user/login', data)
       .then((response) => {
-        console.log('connexion réussie', response.data);
         setCookie('token', response.data.token);
         setCookie('userId', response.data.user._id);
         setUser(response.data.user);
