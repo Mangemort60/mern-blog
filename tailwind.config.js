@@ -11,6 +11,7 @@ export default {
         josefin: ['"Josefin Slab"', 'serif'],
         lora: ['Lora', 'serif'],
         nunito: ['Nunito Sans', 'sans-serif'],
+        flower: ['Indie Flower', 'cursive'],
       },
     },
   },

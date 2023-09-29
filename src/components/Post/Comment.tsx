@@ -23,7 +23,6 @@ const Comment = () => {
   const { id } = useParams();
   const [comments, setComment] = useState<Comments[]>([]);
   const [cookies] = useCookies(['userId', 'token']);
-
   useEffect(() => {
     axios
       .get<GetCommentByPostResponse>(
@@ -116,7 +115,7 @@ const Comment = () => {
                 </span>
               </p>{' '}
               <p className="text-sm">{comment.body}</p>
-              {cookies.userId === comment.author?._id && (
+              {cookies.userId && cookies.userId === comment.author?._id && (
                 <button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
