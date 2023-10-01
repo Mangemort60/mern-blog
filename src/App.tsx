@@ -17,6 +17,7 @@ import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import UpdatePost from './components/Post/UpdatePost';
 import { PostContext } from './contexts/PostContext';
 import ProtectedAdminRoute from './components/Routing/ProtectedAdminRoute';
+import CalendlyWidget from './components/Calendly/CalendlyWidget';
 
 export interface PostTypes {
   _id: string;
@@ -85,6 +86,7 @@ function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/post/editor" element={<PostEditor />} />
           <Route path="/post/update/:id" element={<UpdatePost />} />
+          <Route path="/calendly" element={<CalendlyWidget />} />
         </Route>
       </Routes>
       <Footer />
