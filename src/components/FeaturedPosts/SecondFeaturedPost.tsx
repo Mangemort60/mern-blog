@@ -9,15 +9,15 @@ const SecondFeaturedPost = () => {
   console.log(posts[1].img);
 
   return (
-    <div className="md:h-[300px] mt-4 md:m-0">
+    <div className="md:h-[300px] mt-4 md:m-0 ">
       <Link
         to={`/post/${posts[1]._id}`}
-        className="flex flex-col justify-between"
+        className="flex flex-col justify-between "
       >
         <img
           src={posts[1].img}
           alt=""
-          className="md:h-[250px] h-[600px] object-cover"
+          className="md:h-[250px] h-[600px] object-cover rounded-sm"
         />
         <h1
           className="text-1xl mt-2 truncate md:w-[220px]"

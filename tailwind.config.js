@@ -12,6 +12,7 @@ export default {
         lora: ['Lora', 'serif'],
         nunito: ['Nunito Sans', 'sans-serif'],
         flower: ['Indie Flower', 'cursive'],
+        dancing: ['Dancing Script', 'cursive'],
       },
     },
   },

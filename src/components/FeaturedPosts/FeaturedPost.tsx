@@ -10,7 +10,7 @@ const FeaturedPost = () => {
   return (
     <Link
       to={`/post/${posts[0]._id}`}
-      className="flex flex-col md:h-auto h-[600px] justify-end col-span-2 row-span-2 text-white"
+      className="flex flex-col md:h-auto h-[600px] justify-end col-span-2 row-span-2 text-white rounded-sm"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),url("${posts[0].img}")`,
         backgroundSize: 'cover',

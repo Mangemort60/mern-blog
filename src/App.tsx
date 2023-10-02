@@ -81,13 +81,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/post/:id" element={<Post />} />
-        <Route path="/user-profile/:id" element={<UserProfile />} />
+        <Route path="/user-profile" element={<UserProfile />} />
         <Route element={<ProtectedAdminRoute user={user} />}>
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/post/editor" element={<PostEditor />} />
           <Route path="/post/update/:id" element={<UpdatePost />} />
-          <Route path="/calendly" element={<CalendlyWidget />} />
         </Route>
+        <Route path="/calendly" element={<CalendlyWidget />} />
       </Routes>
       <Footer />
     </>

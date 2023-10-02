@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900 font-nunito">
+      <nav className="border-gray-200 font-nunito">
         <div className="flex justify-between mt-8">
           <div></div>
           <Link to="/" className="flex items-center">
@@ -35,11 +35,8 @@ const Navbar = () => {
               className="h-12 mr-3"
               alt="Sun"
             /> */}
-            <h1 className="text-4xl letter dark:text-white">
-              Youssra ther{' '}
-              <span className="font-flower text-4xl text-yellow-300">
-                <span className="text-black ">'</span> Happy
-              </span>
+            <h1 className="text-5xl font-medium letter dark:text-white font-dancing">
+              Youssra thérapie
             </h1>
           </Link>
           {user.isAdmin ? (
@@ -79,7 +76,7 @@ const Navbar = () => {
                 !cookies.token && !cookies.userId ? 'flex ' : 'invisible '
               }  gap-2`}
             >
-              <button className="border-2 border-black px-4 py-1  font-normal">
+              <button className="border-2 rounded-sm border-black px-4 py-1 hover:bg-slate-50 font-normal">
                 Login
               </button>
             </Link>
@@ -115,7 +112,7 @@ const Navbar = () => {
               <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
                   <Link
-                    to={'/user-profile'}
+                    to={`/user-profile`}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => setIsOpen(false)}
                   >
@@ -164,47 +161,56 @@ const Navbar = () => {
           </button>
           {/* navbar menu */}
           <div
-            className="items-center sm:relative left-[106px] justify-between hidden w-full md:flex md:w-auto md:order-1 sm:m-auto font-nunito text-2xl"
+            className="items-center sm:relative left-[106px] justify-between hidden w-full md:flex md:w-auto md:order-1 sm:m-auto font-nunito font-medium text-1xl"
             id="navbar-user"
           >
-            <ul className="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 ">
+            <ul className="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-white md:bg-opacity-5 md:flex-row md:items-center md:space-x-8 md:mt-0 md:border-0 dark:border-gray-700 ">
               <li>
                 <a
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
-                  Articles
+                  ARTICLES
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
-                  A propos
+                  A PROPOS
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
-                  Offre
+                  OFFRE
                 </a>
               </li>
-
               <li>
                 <a
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
-                  Contact
+                  CONTACT
                 </a>
+              </li>
+              <li className="mt-2 md:m-0">
+                <Link
+                  to={'/calendly'}
+                  type="button"
+                  className="shadow-sm p-2 m-2 bg-[#AFA4CE] rounded-sm hover:bg-[#9383be]  text-white"
+                >
+                  Prendre RDV
+                </Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
+      <hr className="hidden mt-2  md:flex md:w-1/3 m-auto" />
     </>
   );
 };

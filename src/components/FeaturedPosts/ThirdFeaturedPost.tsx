@@ -15,7 +15,7 @@ const ThirdFeaturedPost = () => {
         <img
           src={posts[2].img}
           alt=""
-          className="md:h-[250px] h-[600px] object-cover "
+          className="md:h-[250px] h-[600px] object-cover rounded-sm"
         />
         <h1
           className="text-1xl mt-2 truncate md:w-[220px]"

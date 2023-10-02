@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ /* @media (min-width: 768px) {
+    html {
+      background: rgb(255,255,255);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.295) 64%, rgba(175,164,206,1) 99%, rgba(175,164,206,1) 100%);
+    }
+  }  */
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+

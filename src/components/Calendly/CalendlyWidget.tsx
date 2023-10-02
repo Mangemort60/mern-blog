@@ -1,6 +1,9 @@
+import { useContext } from 'react';
 import { InlineWidget } from 'react-calendly';
+import { UserContext } from '../../contexts/UserContext';
 
 const CalendlyWidget = () => {
+  const { user } = useContext(UserContext);
   return (
     <div>
       {' '}
@@ -11,7 +14,7 @@ const CalendlyWidget = () => {
           marginTop: '80px',
         }}
         prefill={{
-          email: 'hahaddaoui@gmail.com',
+          email: user.email || undefined,
         }}
       />
     </div>
