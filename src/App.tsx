@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Post from './components/Post/Post';
 import Register from './components/Register';
-import UserProfile from './components/UserProfile';
+import UserProfile from './components/UserProfile/UserProfile';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { useContext, useEffect } from 'react';

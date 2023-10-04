@@ -16,6 +16,7 @@ export interface User {
   pseudo: string;
   headshot: string;
   isAuthor: boolean;
+  bio: string;
   isAdmin: boolean;
   posts: string[];
 }
@@ -33,6 +34,7 @@ const defaultState = {
     pseudo: '',
     headshot: '',
     isAuthor: false,
+    bio: '',
     isAdmin: false,
     posts: [''],
   },
@@ -57,6 +59,7 @@ export default function UserProvider({ children }: UserProviderProps) {
     headshot: '',
     isAuthor: false,
     isAdmin: false,
+    bio: '',
     posts: [''],
   });
 

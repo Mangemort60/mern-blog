@@ -65,14 +65,14 @@ const Navbar = () => {
           <div
             className={`${
               cookies.token && cookies.userId ? 'flex ' : 'invisible'
-            } items-center md:order-2 mr-2`}
+            } items-center lg:order-2 mr-2`}
           >
             <p className="font-nunito font-normal">Salut {user.pseudo} !</p>
           </div>
-          <div className="flex items-center md:order-2">
+          <div className="flex items-center lg:order-2">
             <Link
               to={'/login'}
-              className={`md:order-2 ${
+              className={`lg:order-2 ${
                 !cookies.token && !cookies.userId ? 'flex ' : 'invisible '
               }  gap-2`}
             >
@@ -85,7 +85,7 @@ const Navbar = () => {
               type="button"
               className={`${
                 cookies.token && cookies.userId ? 'flex ' : 'invisible '
-              } mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600`}
+              } mr-3 text-sm bg-gray-800 rounded-full lg:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600`}
               id="user-menu-button"
               aria-expanded="false"
               data-dropdown-toggle="user-dropdown"
@@ -137,7 +137,7 @@ const Navbar = () => {
           <button
             data-collapse-toggle="navbar-user"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-user"
             aria-expanded="false"
           >
@@ -161,14 +161,14 @@ const Navbar = () => {
           </button>
           {/* navbar menu */}
           <div
-            className="items-center sm:relative left-[106px] justify-between hidden w-full md:flex md:w-auto md:order-1 sm:m-auto font-nunito font-medium text-1xl"
+            className="items-center sm:relative left-[106px] justify-between hidden w-full lg:flex lg:w-auto lg:order-1 sm:m-auto font-nunito font-medium text-1xl"
             id="navbar-user"
           >
-            <ul className="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-white md:bg-opacity-5 md:flex-row md:items-center md:space-x-8 md:mt-0 md:border-0 dark:border-gray-700 ">
+            <ul className="flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-white lg:bg-opacity-5 lg:flex-row lg:items-center lg:space-x-8 lg:mt-0 lg:border-0 dark:border-gray-700 ">
               <li>
                 <a
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-black lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   ARTICLES
                 </a>
@@ -176,7 +176,7 @@ const Navbar = () => {
               <li>
                 <a
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-black lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   A PROPOS
                 </a>
@@ -184,7 +184,7 @@ const Navbar = () => {
               <li>
                 <a
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-black lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   OFFRE
                 </a>
@@ -192,12 +192,12 @@ const Navbar = () => {
               <li>
                 <a
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-black lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   CONTACT
                 </a>
               </li>
-              <li className="mt-2 md:m-0">
+              <li className="mt-2 lg:m-0">
                 <Link
                   to={'/calendly'}
                   type="button"
@@ -210,7 +210,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <hr className="hidden mt-2  md:flex md:w-1/3 m-auto" />
+      <hr className="hidden mt-2  lg:flex lg:w-1/3 m-auto" />
     </>
   );
 };

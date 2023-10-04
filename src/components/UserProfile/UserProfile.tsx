@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 // import { useParams } from 'react-router-dom';
-import { UserContext } from '../contexts/UserContext';
-import defaultHeadshot from '../assets/defaultHeadshot.webp';
+import { UserContext } from '../../contexts/UserContext';
+import defaultHeadshot from '../../assets/defaultHeadshot.webp';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import Bio from './Bio';
 
 interface MyCookie {
   token: string;
@@ -52,14 +53,17 @@ const UserProfile = () => {
   };
   return (
     <>
-      <div className="grid grid-cols-5 grid-rows-5 gap-4">
-        <div className="col-span-5 md:col-span-1">
-          <img
-            src={user.headshot || defaultHeadshot}
-            className="w-44 h-44 m-auto rounded-full "
-          />
+      <div className="grid grid-cols-5 grid-rows-5 gap-8 w-1/2 mt-8 m-auto">
+        <div className="col-span-5 lg:col-span-1">
+          <div className="relative w-28 h-28 m-auto rounded-full overflow-hidden">
+            <img
+              src={user.headshot || defaultHeadshot}
+              className="w-full h-full object-cover"
+              alt="User Headshot"
+            />
+          </div>
           <label
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2"
             htmlFor="small_size"
           >
             Ajouter une photo
@@ -74,11 +78,13 @@ const UserProfile = () => {
             uploader
           </button>
         </div>
-        <div className="col-span-5 md:col-span-4">Bio</div>
-        <div className="col-span-5 md:col-span-1 md:row-span-4 md:row-start-2">
-          infos
+        <div className="col-span-5 lg:col-span-4">
+          <Bio />
         </div>
-        <div className="col-span-5 md:col-span-4 md:row-start-2">fav</div>
+        <div className="col-span-5 lg:col-span-1 lg:row-span-4 lg:row-start-2"></div>
+        {user.posts && (
+          <div className="col-span-5 lg:col-span-4 lg:row-start-2">fav</div>
+        )}
       </div>
     </>
   );
