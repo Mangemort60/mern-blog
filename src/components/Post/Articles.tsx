@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { PostContext } from '../../contexts/PostContext';
-import PostList from '../AdminDashboard/PostList';
 import { useContext } from 'react';
 import moment from 'moment';
 

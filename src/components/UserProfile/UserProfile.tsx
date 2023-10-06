@@ -21,13 +21,14 @@ const UserProfile = () => {
   const [file, setFile] = useState<File | null>(null);
   const [cookies] = useCookies(['token', 'userId']);
   const [uploadIsDisplayed, setUploadIsDisplayed] = useState(false);
+  const [uploadConfirmation, setUploadConfirmation] = useState(false);
 
   // Fonction pour gérer le changement de fichier, recupère le fichier selectionnée, et setFile.
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files ? e.target.files[0] : null;
     setFile(selectedFile);
-    if (selectedFile) {
-      return setUploadIsDisplayed(true), console.log(selectedFile);
+    if (file) {
+      return setUploadIsDisplayed(true);
     }
     setUploadIsDisplayed(!uploadIsDisplayed);
   };
@@ -50,6 +51,13 @@ const UserProfile = () => {
           },
         }
       );
+      setFile(null);
+      setUploadConfirmation(true);
+      setUploadIsDisplayed(false);
+
+      setTimeout(() => {
+        setUploadConfirmation(false);
+      }, 10000);
 
       console.log(imageResponse);
     } catch (error) {
@@ -58,6 +66,14 @@ const UserProfile = () => {
   };
   return (
     <>
+      {uploadConfirmation && (
+        <div
+          className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-green-400"
+          role="alert"
+        >
+          Votre photo a bien été enregistrée
+        </div>
+      )}
       <div className="grid grid-cols-5 grid-rows-5 gap-8 md:w-1/2 mt-8 md:m-auto md:mt-8 font-nunito">
         <div className="col-span-5 lg:col-span-1">
           <div className="relative w-28 h-28 m-auto rounded-full overflow-hidden">
@@ -67,9 +83,6 @@ const UserProfile = () => {
               alt="User Headshot"
             />
           </div>
-          <p className="text-gray-500">
-            Statut : {user.isAuthor ? 'Auteur' : 'Membre'}
-          </p>
           <label
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2"
             htmlFor="small_size"
@@ -88,6 +101,9 @@ const UserProfile = () => {
               Valider
             </button>
           )}
+          <p className="text-gray-500 m-2">
+            Statut : {user.isAuthor ? 'Auteur' : 'Membre'}
+          </p>
         </div>
         <div className="col-span-5 lg:col-span-4">
           <Bio />
