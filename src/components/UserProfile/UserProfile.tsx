@@ -20,11 +20,16 @@ const UserProfile = () => {
   const { user } = useContext(UserContext);
   const [file, setFile] = useState<File | null>(null);
   const [cookies] = useCookies(['token', 'userId']);
+  const [uploadIsDisplayed, setUploadIsDisplayed] = useState(false);
 
   // Fonction pour gérer le changement de fichier, recupère le fichier selectionnée, et setFile.
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files ? e.target.files[0] : null;
     setFile(selectedFile);
+    if (selectedFile) {
+      return setUploadIsDisplayed(true), console.log(selectedFile);
+    }
+    setUploadIsDisplayed(!uploadIsDisplayed);
   };
 
   const onSubmit = async () => {
@@ -53,7 +58,7 @@ const UserProfile = () => {
   };
   return (
     <>
-      <div className="grid grid-cols-5 grid-rows-5 gap-8 w-1/2 mt-8 m-auto">
+      <div className="grid grid-cols-5 grid-rows-5 gap-8 md:w-1/2 mt-8 md:m-auto md:mt-8 font-nunito">
         <div className="col-span-5 lg:col-span-1">
           <div className="relative w-28 h-28 m-auto rounded-full overflow-hidden">
             <img
@@ -62,21 +67,27 @@ const UserProfile = () => {
               alt="User Headshot"
             />
           </div>
+          <p className="text-gray-500">
+            Statut : {user.isAuthor ? 'Auteur' : 'Membre'}
+          </p>
           <label
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2"
             htmlFor="small_size"
+            title="choisir"
           >
-            Ajouter une photo
+            Modifier photo
           </label>
           <input
-            className="block w-full mb-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            className="block w-full mb-2 text-xs text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
             id="upload"
             type="file"
             onChange={handleFileChange}
           ></input>
-          <button className="border p-2" onClick={onSubmit}>
-            uploader
-          </button>
+          {uploadIsDisplayed && (
+            <button className="border p-2 rounded-md" onClick={onSubmit}>
+              Valider
+            </button>
+          )}
         </div>
         <div className="col-span-5 lg:col-span-4">
           <Bio />

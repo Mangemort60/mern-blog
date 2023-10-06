@@ -18,6 +18,7 @@ import UpdatePost from './components/Post/UpdatePost';
 import { PostContext } from './contexts/PostContext';
 import ProtectedAdminRoute from './components/Routing/ProtectedAdminRoute';
 import CalendlyWidget from './components/Calendly/CalendlyWidget';
+import Articles from './components/Post/Articles';
 
 export interface PostTypes {
   _id: string;
@@ -88,6 +89,7 @@ function App() {
           <Route path="/post/update/:id" element={<UpdatePost />} />
         </Route>
         <Route path="/calendly" element={<CalendlyWidget />} />
+        <Route path="/articles" element={<Articles />} />
       </Routes>
       <Footer />
     </>

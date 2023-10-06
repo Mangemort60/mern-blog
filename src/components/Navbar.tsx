@@ -39,7 +39,7 @@ const Navbar = () => {
               Youssra thérapie
             </h1>
           </Link>
-          {user.isAdmin ? (
+          {cookies.userId && cookies.token && user.isAdmin ? (
             <Link to="/admin" className="mr-4 flex ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -166,12 +166,12 @@ const Navbar = () => {
           >
             <ul className="flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-white lg:bg-opacity-5 lg:flex-row lg:items-center lg:space-x-8 lg:mt-0 lg:border-0 dark:border-gray-700 ">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to={'/articles'}
                   className="block py-2 pl-3 pr-4 text-gray-500 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-black lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   ARTICLES
-                </a>
+                </Link>
               </li>
               <li>
                 <a
