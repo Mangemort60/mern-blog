@@ -101,9 +101,6 @@ const UserProfile = () => {
               Valider
             </button>
           )}
-          <p className="text-gray-500 m-2">
-            Statut : {user.isAuthor ? 'Auteur' : 'Membre'}
-          </p>
         </div>
         <div className="col-span-5 lg:col-span-4">
           <Bio />

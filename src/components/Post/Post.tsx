@@ -1,5 +1,5 @@
 import Comment from './Comment';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
@@ -11,6 +11,7 @@ interface ApiResponse {
 }
 
 export interface Author {
+  _id: string;
   email: string;
   password: string;
   pseudo: string;
@@ -32,7 +33,6 @@ interface PostData {
 const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState<PostData>();
-  console.log(post?.comment?.length);
 
   useEffect(() => {
     axios
@@ -56,11 +56,13 @@ const Post = () => {
       <div className="flex w-full text-gray-400">
         <div className="flex">
           <p className="text-sm">By {post?.author.pseudo}</p>
-          <img
-            className="w-6 h-6 rounded-full ml-2  mb-1 "
-            src={post?.author.headshot ?? defaultHeadshot}
-            alt="user photo"
-          />
+          <Link to={`/user-profile/${post?.author._id}`}>
+            <img
+              className="w-6 h-6 rounded-full ml-2  mb-1 "
+              src={post?.author.headshot ?? defaultHeadshot}
+              alt="user photo"
+            />
+          </Link>
         </div>
         <p className="ml-auto text-sm">
           {post?.date

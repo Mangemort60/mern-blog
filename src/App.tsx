@@ -20,6 +20,8 @@ import ProtectedAdminRoute from './components/Routing/ProtectedAdminRoute';
 import CalendlyWidget from './components/Calendly/CalendlyWidget';
 import Articles from './components/Post/Articles';
 import Offre from './components/Offre';
+import ProtectedUserRoute from './components/Routing/ProtectedUserRoute';
+import PublicUserProfile from './components/UserProfile/PublicUserProfile';
 
 export interface PostTypes {
   _id: string;
@@ -83,12 +85,18 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/post/:id" element={<Post />} />
-        <Route path="/user-profile" element={<UserProfile />} />
         <Route element={<ProtectedAdminRoute user={user} />}>
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/post/editor" element={<PostEditor />} />
           <Route path="/post/update/:id" element={<UpdatePost />} />
         </Route>
+        <Route element={<ProtectedUserRoute />}>
+          <Route path="/user-profile" element={<UserProfile />} />
+        </Route>
+        <Route
+          path="/user-profile/:userProfileId"
+          element={<PublicUserProfile />}
+        />
         <Route path="/calendly" element={<CalendlyWidget />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/offre" element={<Offre />} />

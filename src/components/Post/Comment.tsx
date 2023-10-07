@@ -97,15 +97,17 @@ const Comment = () => {
         comments.map((comment) => (
           <div className="flex" key={comment._id}>
             <div className="flex-shrink-0 mr-3">
-              <img
-                className="mt-2 rounded-full w-8 h-8 "
-                src={
-                  comment.author
-                    ? comment.author.headshot || defaultHeadshot
-                    : defaultHeadshot
-                }
-                alt=""
-              />
+              <Link to={`/user-profile/${comment?.author?._id}`}>
+                <img
+                  className="mt-2 rounded-full w-8 h-8 "
+                  src={
+                    comment.author
+                      ? comment.author.headshot || defaultHeadshot
+                      : defaultHeadshot
+                  }
+                  alt=""
+                />
+              </Link>
             </div>
             <div className="flex flex-col border rounded-sm w-full px-4 py-2">
               <p className="mb-4">
