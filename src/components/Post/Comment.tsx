@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 import { User } from '../../contexts/UserContext';
 import { confirmAlert } from 'react-confirm-alert';
 import defaultHeadshot from '../../assets/defaultHeadshot.webp';
+import config from '../../config/config';
 
 export interface Comments {
   _id: string;
@@ -25,9 +26,7 @@ const Comment = () => {
   const [cookies] = useCookies(['userId', 'token']);
   useEffect(() => {
     axios
-      .get<GetCommentByPostResponse>(
-        `http://127.0.0.1:3000/api/comment/post/${id}`
-      )
+      .get<GetCommentByPostResponse>(`${config.apiUrl}/api/comment/post/${id}`)
       .then((response) => {
         setComment(response.data.postComments);
       })
@@ -47,7 +46,7 @@ const Comment = () => {
           onClick: async () => {
             try {
               const response = await axios.delete(
-                `http://127.0.0.1:3000/api/comment/delete/${id}`,
+                `${config.apiUrl}/api/comment/delete/${id}`,
                 {
                   headers: {
                     Authorization: cookies.token as string,

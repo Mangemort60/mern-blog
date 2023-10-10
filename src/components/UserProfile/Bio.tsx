@@ -6,6 +6,7 @@ import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import { useCookies } from 'react-cookie';
 import { User } from '../../contexts/UserContext';
+import config from '../../config/config';
 
 interface MyCookie {
   token: string;
@@ -34,7 +35,7 @@ const Bio = () => {
     try {
       const bioText = data.bio;
       const updateBioResponse = await axios.put<updateBioResponse>(
-        `http://127.0.0.1:3000/api/user/update/${user._id}`,
+        `${config.apiUrl}/api/user/update/${user._id}`,
         { bio: bioText },
         {
           headers: {
@@ -44,7 +45,7 @@ const Bio = () => {
       );
       console.log('mise à jour de la bio', updateBioResponse.data.updatedUser);
       const getUserResponse = await axios.get<getUserResponse>(
-        `http://127.0.0.1:3000/api/user/${user._id}`,
+        `${config.apiUrl}/api/user/${user._id}`,
         {
           headers: {
             Authorization: (cookies as MyCookie).token,

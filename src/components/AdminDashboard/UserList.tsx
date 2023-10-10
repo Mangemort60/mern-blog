@@ -4,6 +4,7 @@ import { User } from '../../contexts/UserContext';
 import { Link } from 'react-router-dom';
 import defaultHeadshot from '../../assets/defaultHeadshot.webp';
 import { useCookies } from 'react-cookie';
+import config from '../../config/config';
 
 const UserList = () => {
   const [users, setUsers] = useState<User[] | null>(null);
@@ -17,7 +18,7 @@ const UserList = () => {
 
   useEffect(() => {
     axios
-      .get<ApiResponse>('http://127.0.0.1:3000/api/users')
+      .get<ApiResponse>(`${config.apiUrl}/api/users`)
       .then((response) => {
         setUsers(response.data.users);
       })
@@ -31,7 +32,7 @@ const UserList = () => {
 
     axios
       .put(
-        `http://127.0.0.1:3000/api/user/update/${id}`,
+        `${config.apiUrl}/api/user/update/${id}`,
         { isAuthor: !currentIsAuthor },
         {
           headers: {

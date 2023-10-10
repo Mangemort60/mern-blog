@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import config from '../config/config';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Register = () => {
 
   const onSubmit = (data: FormData) => {
     axios
-      .post('http://127.0.0.1:3000/api/user', data)
+      .post(`${config.apiUrl}/api/user`, data)
       .then((response) => {
         console.log('compte crée avec succès', response.data);
         navigate('/login');

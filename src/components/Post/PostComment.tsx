@@ -8,6 +8,7 @@ import { UserContext } from '../../contexts/UserContext';
 import React, { useContext, useState } from 'react';
 import { Comments } from './Comment';
 import defaultHeadshot from '../../assets/defaultHeadshot.webp';
+import config from '../../config/config';
 
 interface ApiPostResponse {
   createdComment: Comments;
@@ -32,7 +33,7 @@ const PostComment = ({ setComment }: PostCommentProps) => {
     };
 
     axios
-      .post<ApiPostResponse>('http://127.0.0.1:3000/api/comment', newComment, {
+      .post<ApiPostResponse>(`${config.apiUrl}/api/comment`, newComment, {
         headers: {
           Authorization: token.token as string,
         },

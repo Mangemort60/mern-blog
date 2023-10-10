@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { User, UserContext } from '../contexts/UserContext';
 import { useContext, useState } from 'react';
+import config from '../config/config';
 
 interface ResponseData {
   token: string;
@@ -21,7 +22,7 @@ const Login = () => {
 
   const onSubmit = (data: FormData) => {
     axios
-      .post<ResponseData>('http://127.0.0.1:3000/api/user/login', data)
+      .post<ResponseData>(`${config.apiUrl}/api/user/login`, data)
       .then((response) => {
         setCookie('token', response.data.token);
         setCookie('userId', response.data.user._id);

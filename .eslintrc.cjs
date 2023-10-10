@@ -18,6 +18,9 @@ module.exports = {
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
+  global: {
+    process: true,
+  },
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': [

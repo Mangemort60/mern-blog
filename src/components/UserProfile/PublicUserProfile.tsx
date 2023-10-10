@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import defaultHeadshot from '../../assets/defaultHeadshot.webp';
 import { User } from '../../contexts/UserContext';
+import config from '../../config/config';
 
 interface ApiResponse {
   user: User;
@@ -16,7 +17,7 @@ const PublicUserProfile = () => {
 
   useEffect(() => {
     axios
-      .get<ApiResponse>(`http://127.0.0.1:3000/api/user/${userProfileId}`)
+      .get<ApiResponse>(`${config.apiUrl}/api/user/${userProfileId}`)
       .then((response) => {
         const data = response.data.user;
         console.log(data);

@@ -22,6 +22,7 @@ import Articles from './components/Post/Articles';
 import Offre from './components/Offre';
 import ProtectedUserRoute from './components/Routing/ProtectedUserRoute';
 import PublicUserProfile from './components/UserProfile/PublicUserProfile';
+import config from '../src/config/config';
 
 export interface PostTypes {
   _id: string;
@@ -44,13 +45,12 @@ function App() {
   const [cookies] = useCookies(['userId', 'token']);
   const { user, setUser } = useContext(UserContext);
   const { setIsUserLoading } = useContext(UserContext);
+  console.log(process.env.NODE_ENV);
 
   useEffect(() => {
     if (cookies.userId && cookies.token) {
       axios
-        .get<GetUserResponse>(
-          `http://127.0.0.1:3000/api/user/${cookies.userId}`
-        )
+        .get<GetUserResponse>(`${config.apiUrl}/api/user/${cookies.userId}`)
         .then((response) => {
           setUser(response.data.user);
           setIsUserLoading(false);
@@ -67,7 +67,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get<PostTypes[]>('http://127.0.0.1:3000/api/posts')
+      .get<PostTypes[]>(`${config.apiUrl}/api/posts`)
       .then((response) => {
         const posts = response.data;
         setPosts(posts);

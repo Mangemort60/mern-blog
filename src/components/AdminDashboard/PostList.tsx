@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import moment from 'moment';
+import config from '../../config/config';
 
 const PostList = () => {
   const [cookies] = useCookies(['token']);
@@ -22,7 +23,7 @@ const PostList = () => {
           onClick: async () => {
             try {
               const response = await axios.delete(
-                `http://127.0.0.1:3000/api/post/delete/${id}`,
+                `${config.apiUrl}/api/post/delete/${id}`,
                 {
                   headers: {
                     Authorization: cookies.token as string,

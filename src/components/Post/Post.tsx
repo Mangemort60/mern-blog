@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import moment from 'moment';
 import HTMLReactParser from 'html-react-parser';
 import defaultHeadshot from '../../assets/defaultHeadshot.webp';
+import config from '../../config/config';
 
 interface ApiResponse {
   post: PostData;
@@ -36,7 +37,7 @@ const Post = () => {
 
   useEffect(() => {
     axios
-      .get<ApiResponse>(`http://127.0.0.1:3000/api/post/get/${id}`)
+      .get<ApiResponse>(`${config.apiUrl}/api/post/get/${id}`)
       .then((response) => {
         const data = response.data.post;
         setPost(data);

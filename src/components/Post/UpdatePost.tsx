@@ -9,6 +9,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useParams } from 'react-router-dom';
 import { PostTypes } from '../../App';
 import fullToolbarOptions from '../../helpers/reactQuillconfig';
+import config from '../../config/config';
 
 interface ApiGetPostResponse {
   post: PostTypes;
@@ -61,7 +62,7 @@ const PostEditor = () => {
     try {
       const postData = { ...data };
       const postResponse = await axios.put(
-        `http://127.0.0.1:3000/api/post/update/${id}`,
+        `${config.apiUrl}/api/post/update/${id}`,
         { ...postData, body: editorValue },
         {
           headers: {

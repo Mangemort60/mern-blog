@@ -5,6 +5,7 @@ import defaultHeadshot from '../../assets/defaultHeadshot.webp';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import Bio from './Bio';
+import config from '../../config/config';
 
 interface MyCookie {
   token: string;
@@ -43,7 +44,7 @@ const UserProfile = () => {
     try {
       // upload de l'image
       const imageResponse = await axios.post<UploadData>(
-        `http://127.0.0.1:3000/api/user/upload/${user._id}`,
+        `${config.apiUrl}/api/user/upload/${user._id}`,
         imageFormData,
         {
           headers: {

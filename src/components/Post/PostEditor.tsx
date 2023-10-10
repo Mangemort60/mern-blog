@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import fullToolbarOptions from '../../helpers/reactQuillconfig';
+import config from '../../config/config';
 
 interface UploadData {
   imageUrl: string;
@@ -65,7 +66,7 @@ const PostEditor = () => {
     try {
       // upload de l'image
       const imageResponse = await axios.post<UploadData>(
-        'http://127.0.0.1:3000/api/post/upload',
+        `${config.apiUrl}/api/post/upload`,
         imageFormData,
         {
           headers: {
@@ -78,7 +79,7 @@ const PostEditor = () => {
       const imageUrl = imageResponse.data.imageUrl;
       const postData = { ...data };
       const postResponse = await axios.post(
-        'http://127.0.0.1:3000/api/post',
+        `${config.apiUrl}/api/post`,
         { ...postData, img: imageUrl, author: (cookies as MyCookie).userId },
         {
           headers: {
