@@ -22,17 +22,16 @@ const defaultState = {
   posts: [
     {
       _id: '',
-      author: [
-        {
-          _id: '',
-          email: '',
-          pseudo: '',
-          headshot: '',
-          isAuthor: false,
-          isAdmin: false,
-          posts: [''],
-        },
-      ],
+      author: {
+        _id: '',
+        email: '',
+        pseudo: '',
+        headshot: '',
+        isAuthor: false,
+        isAdmin: false,
+        bio: '',
+        posts: [''],
+      },
       body: '',
       comment: [''],
       date: new Date(),
@@ -59,17 +58,16 @@ export default function PostProvider({ children }: PostProviderProps) {
   const [posts, setPosts] = useState<PostTypes[]>([
     {
       _id: '',
-      author: [
-        {
-          _id: '',
-          email: '',
-          pseudo: '',
-          headshot: '',
-          isAuthor: false,
-          isAdmin: false,
-          posts: [''],
-        },
-      ],
+      author: {
+        _id: '',
+        email: '',
+        pseudo: '',
+        headshot: '',
+        isAuthor: false,
+        isAdmin: false,
+        bio: '',
+        posts: [''],
+      },
       body: '',
       comment: [''],
       date: null,
