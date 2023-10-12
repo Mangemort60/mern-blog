@@ -43,7 +43,7 @@ const PostEditor = () => {
 
   useEffect(() => {
     axios
-      .get<ApiGetPostResponse>(`http://127.0.0.1:3000/api/post/get/${id}`)
+      .get<ApiGetPostResponse>(`${config.apiUrl}/api/post/get/${id}`)
       .then((response) => {
         setPost(response.data.post);
         setValue('title', response.data.post.title);
