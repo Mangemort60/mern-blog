@@ -13,7 +13,11 @@ interface ResponseData {
   user: User;
 }
 
-const Login = () => {
+interface LoginProps {
+  setConfirmationPostMessage: (message: string) => void;
+}
+
+const Login = ({ setConfirmationPostMessage }: LoginProps) => {
   const [, setCookie] = useCookies<string>([]);
   const { setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -27,6 +31,10 @@ const Login = () => {
         setCookie('token', response.data.token);
         setCookie('userId', response.data.user._id);
         setUser(response.data.user);
+        setTimeout(() => {
+          setConfirmationPostMessage('');
+        }, 10000);
+        setConfirmationPostMessage(`Bienvenue ${response.data.user.pseudo} !`);
         navigate('/');
       })
       .catch((err) => {

@@ -47,14 +47,14 @@ const NavbarMenu = () => {
                   {user.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>
-                <Link to={'/user-profile'}>Mon profil</Link>
-              </Dropdown.Item>
+              <Link to={'/user-profile'}>
+                <Dropdown.Item>Mon profil</Dropdown.Item>
+              </Link>
 
               {cookies.userId && cookies.token && user.isAdmin && (
-                <Dropdown.Item>
-                  <Link to={'/admin'}>Admin</Link>
-                </Dropdown.Item>
+                <Link to={'/admin'}>
+                  <Dropdown.Item>Admin</Dropdown.Item>
+                </Link>
               )}
 
               <Dropdown.Divider />

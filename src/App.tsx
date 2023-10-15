@@ -46,8 +46,7 @@ function App() {
   const { user, setUser } = useContext(UserContext);
   const { setIsUserLoading } = useContext(UserContext);
   const [confirmationPostMessage, setConfirmationPostMessage] = useState('');
-
-  console.log(process.env.NODE_ENV);
+  console.log(confirmationPostMessage);
 
   useEffect(() => {
     if (cookies.userId && cookies.token) {
@@ -84,7 +83,7 @@ function App() {
       <Navbar />
       {confirmationPostMessage && (
         <div
-          className="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+          className="flex items-center justify-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
           role="alert"
         >
           <svg
@@ -102,8 +101,18 @@ function App() {
       )}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={
+            <Login setConfirmationPostMessage={setConfirmationPostMessage} />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Register setConfirmationPostMessage={setConfirmationPostMessage} />
+          }
+        />
         <Route path="/post/:id" element={<Post />} />
         <Route element={<ProtectedAdminRoute user={user} />}>
           <Route path="/admin" element={<AdminDashboard />} />
@@ -118,7 +127,14 @@ function App() {
           <Route path="/post/update/:id" element={<UpdatePost />} />
         </Route>
         <Route element={<ProtectedUserRoute />}>
-          <Route path="/user-profile" element={<UserProfile />} />
+          <Route
+            path="/user-profile"
+            element={
+              <UserProfile
+                setConfirmationPostMessage={setConfirmationPostMessage}
+              />
+            }
+          />
         </Route>
         <Route
           path="/user-profile/:userProfileId"

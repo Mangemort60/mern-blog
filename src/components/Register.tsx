@@ -6,7 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import config from '../config/config';
 
-const Register = () => {
+interface RegisterProps {
+  setConfirmationPostMessage: (message: string) => void;
+}
+
+const Register = ({ setConfirmationPostMessage }: RegisterProps) => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   console.log(errorMessage);
@@ -16,6 +20,12 @@ const Register = () => {
       .post(`${config.apiUrl}/api/user`, data)
       .then((response) => {
         console.log('compte crée avec succès', response.data);
+        setTimeout(() => {
+          setConfirmationPostMessage('');
+        }, 10000);
+        setConfirmationPostMessage(
+          `Inscription réussi! vous pouvez à présent vous connecter`
+        );
         navigate('/login');
       })
       .catch((err) => {
