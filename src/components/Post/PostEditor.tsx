@@ -116,7 +116,7 @@ const PostEditor = ({ setConfirmationPostMessage }: PostEditorProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center font-nunito md:w-3/6 m-auto">
+    <div className="flex flex-col gap-2 items-center font-nunito md:w-3/6 mx-auto mt-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2 md:w-full"
