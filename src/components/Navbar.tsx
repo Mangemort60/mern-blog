@@ -81,7 +81,7 @@ const NavbarMenu = () => {
             <Link to={'/articles'}>Articles</Link>
           </Navbar.Link>
           <Navbar.Link href="#">
-            <Link to={''}>A propos</Link>
+            <Link to={'/apropos'}>A propos</Link>
           </Navbar.Link>
           <Navbar.Link href="#">
             <Link to={'/offre'}>Offres</Link>

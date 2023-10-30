@@ -8,7 +8,7 @@ const CalendlyWidget = () => {
     <div>
       {' '}
       <InlineWidget
-        url="https://calendly.com/hahaddaoui"
+        url="https://calendly.com/youssratherapie"
         styles={{
           height: '1000px',
           marginTop: '80px',

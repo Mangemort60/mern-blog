@@ -23,6 +23,7 @@ import Offre from './components/Offre';
 import ProtectedUserRoute from './components/Routing/ProtectedUserRoute';
 import PublicUserProfile from './components/UserProfile/PublicUserProfile';
 import config from '../src/config/config';
+import Apropos from './components/Apropos';
 
 export interface PostTypes {
   _id: string;
@@ -143,6 +144,7 @@ function App() {
         <Route path="/calendly" element={<CalendlyWidget />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/offre" element={<Offre />} />
+        <Route path="/apropos" element={<Apropos />} />
       </Routes>
       <Footer />
     </>
