@@ -45,7 +45,7 @@ const Register = ({ setConfirmationPostMessage }: RegisterProps) => {
     email: z
       .string()
       .min(2, { message: "L'email doit contenir au minimum 2 caractères" })
-      .max(30, {
+      .max(15, {
         message: 'Lemail doit contenir au maximum 15 caractères',
       }),
     pseudo: z
@@ -102,8 +102,10 @@ const Register = ({ setConfirmationPostMessage }: RegisterProps) => {
             placeholder="pseudo"
             {...register('pseudo', { required: true })}
           />
-          {errors.email && (
-            <span className="text-sm text-red-600">This field is required</span>
+          {errors.pseudo && (
+            <span className="text-sm text-red-600">
+              {errors.pseudo.message}
+            </span>
           )}
         </div>
 
@@ -122,7 +124,7 @@ const Register = ({ setConfirmationPostMessage }: RegisterProps) => {
             {...register('email', { required: true })}
           />
           {errors.email && (
-            <span className="text-sm text-red-600">This field is required</span>
+            <span className="text-sm text-red-600">{errors.email.message}</span>
           )}
         </div>
         <div className="mb-6">
@@ -140,7 +142,9 @@ const Register = ({ setConfirmationPostMessage }: RegisterProps) => {
             {...register('password', { required: true })}
           />
           {errors.password && (
-            <span className="text-sm text-red-600">This field is required</span>
+            <span className="text-sm text-red-600">
+              {errors.password.message}
+            </span>
           )}
         </div>
         <div className="flex items-center justify-between">
