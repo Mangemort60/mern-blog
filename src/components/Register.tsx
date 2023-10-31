@@ -45,8 +45,8 @@ const Register = ({ setConfirmationPostMessage }: RegisterProps) => {
     email: z
       .string()
       .min(2, { message: "L'email doit contenir au minimum 2 caractères" })
-      .max(15, {
-        message: 'Lemail doit contenir au maximum 15 caractères',
+      .max(30, {
+        message: "L'email doit contenir au maximum 30 caractères",
       }),
     pseudo: z
       .string()
